@@ -75,44 +75,35 @@ var InvestigatorSheet = {
   },
 
   Events: function() {
+    var ratio = $(window).width() / $(window).height();
+
+    var hitArea = document.getElementById('container');
+    var mc = new Hammer(hitArea);
+    mc.on("swipeleft", function(ev) {
+      InvestigatorSheet.Swipe('right');
+    });
+    mc.on("swiperight", function(ev) {
+      InvestigatorSheet.Swipe('left');
+    });
+    mc.on("swipeup", function(ev) {
+
+    });
+    mc.on("swipedown", function(ev) {
+
+    });
+
     $(document).click(function() {
       if ($('#container').width() != InvestigatorSheet.WINDOW_WIDTH || $('#container').height() != InvestigatorSheet.WINDOW_HEIGHT) {
         InvestigatorSheet.Scale();
       }
     });
-
-    var xStart, yStart, xEnd, yEnd;
-    $(document).on('mousedown touchstart', function(e) {
-      //console.log("(x,y) = (" + e.pageX + "," + e.pageY +")");
-      xStart = e.pageX;
-      yStart = e.pageY;
-    }).on('mouseup touchend', function(e) {
-      //console.log("(x,y) = (" + e.pageX + "," + e.pageY +")");
-      var ratio = $(window).width() / $(window).height();
-      xEnd = e.pageX;
-      yEnd = e.pageY;
-      if ((xEnd - xStart) > 50 && ratio >= 1) {
-        console.log('left');
-        InvestigatorSheet.Swipe('left');
-      } else if ((xEnd - xStart) < -50 && ratio >= 1) {
-        console.log('right');
-        InvestigatorSheet.Swipe('right');
-      } else if ((yEnd - yStart) > 50 && ratio < 1) {
-        console.log('up');
-        InvestigatorSheet.Swipe('left');
-      } else if ((yEnd - yStart) < -50 && ratio < 1) {
-        console.log('down');
-        InvestigatorSheet.Swipe('right');
-      }
-    })
-   ;
   },
 
   Init: function() {
     InvestigatorSheet.Setup();
     InvestigatorSheet.CreateInvestigators();
     InvestigatorSheet.Events();
-    //InvestigatorSheet.Scale();
+    InvestigatorSheet.Scale();
   }
 
 };
