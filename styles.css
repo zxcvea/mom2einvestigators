@@ -1,0 +1,183 @@
+html, body { display: block; font-family: Arial; margin: 0; height: 100%; font-size: 12px; border: 0; overflow: hidden; background: #000; }
+html { text-align: left; }
+div { border: 0; }
+a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration: none; outline: 0; }
+.clear { clear: both; height: 0; }
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+#main {
+  width: 100%;
+  height: 100%;
+}
+
+#container {
+  display: block;
+  margin: 0;
+  width: 1406px;
+  height: 815px;
+  overflow: hidden;
+  z-index: 9999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#inner {
+  display: block;
+  margin: 0 auto;
+  width: 1406px;
+  height: 815px;
+  position: absolute;
+}
+
+.template {
+  position: relative;
+  display: block;
+  width: 1406px;
+  height: 815px;
+  /**max-width: 938px;
+  max-height: 544px;**/
+  background: url(img/template.webp) 0 0 no-repeat;
+  /**background-size: cover;**/
+  margin: 0 auto;
+  float: left;
+  z-index: initial;
+}
+
+#profile-image {
+  position: absolute;
+  width: 400px;
+  height: 480px;
+  top: 105px;
+  left: 0;
+  z-index: -1;
+}
+
+#profile-image img {
+  width: 400px;
+  height: 480px;
+  z-index: -1;
+}
+
+#profile-name {
+  position: absolute;
+  display: block;
+  width: 450px;
+  height: 50px;
+  top: 630px;
+  left: 50px;
+  transform: rotate(-10deg);
+  text-align: center;
+  font-family: 'Suez One', serif;
+  font-size: 43px;
+}
+
+#profile-job {
+  position: absolute;
+  display: block;
+  width: 335px;
+  height: 30px;
+  top: 680px;
+  left: 98px;
+  transform: rotate(-10deg);
+  text-align: center;
+  font-family: 'IM Fell English SC', serif;
+  font-size: 28px;
+}
+
+#ability {
+  position: absolute;
+  display: block;
+  width: 410px;
+  height: 180px;
+  top: 460px;
+  left: 540px;
+  transform: rotate(-8deg);
+  text-align: center;
+  font-family: 'EB Garamond', serif;
+  font-size: 30px;
+  vertical-align: middle;
+}
+
+#ability span {
+  display: inline-block;
+  width: 36px;
+  height: 34px;
+  vertical-align: middle;
+}
+
+span.investigation { background: url(img/text-investigation.webp) center center no-repeat; }
+span.success { background: url(img/text-success.webp) center center no-repeat; }
+span.strength { background: url(img/text-strength.webp) center center no-repeat; }
+span.agility { background: url(img/text-agility.webp) center center no-repeat; }
+span.observation { background: url(img/text-observation.webp) center center no-repeat; }
+span.lore { background: url(img/text-lore.webp) center center no-repeat; }
+span.influence { background: url(img/text-influence.webp) center center no-repeat; }
+span.will { background: url(img/text-will.webp) center center no-repeat; }
+
+#stats div {
+  position: absolute;
+  display: block;
+  width: 70px;
+  height: 97px;
+  background-size: contain;
+}
+
+#stats-damage { top: 29px; left: 683px; }
+#stats-horror { top: 229px; left: 733px; }
+
+.stat-5 { background: url(img/stat-5.webp) 0 0 no-repeat; }
+.stat-6 { background: url(img/stat-6.webp) 0 0 no-repeat; }
+.stat-7 { background: url(img/stat-7.webp) 0 0 no-repeat; }
+.stat-8 { background: url(img/stat-8.webp) 0 0 no-repeat; }
+.stat-9 { background: url(img/stat-9.webp) 0 0 no-repeat; }
+
+#attributes div {
+  position: absolute;
+  display: block;
+  width: 43px;
+  height: 63px;
+  background-size: contain;
+}
+
+#attributes-strength { top: 85px; left: 1288px; transform: rotate(-3deg); }
+#attributes-agility { top: 215px; left: 1301px; transform: rotate(2deg); }
+#attributes-observation { top: 321px; left: 1279px; transform: rotate(4deg); }
+#attributes-lore { top: 429px; left: 1258px;  }
+#attributes-influence { top: 542px; left: 1281px; transform: rotate(1deg); }
+#attributes-will { top: 678px; left: 1273px; transform: rotate(2deg); }
+
+.attribute-1 { background: url(img/attribute-1.webp) 0 0 no-repeat; }
+.attribute-2 { background: url(img/attribute-2.webp) 0 0 no-repeat; }
+.attribute-3 { background: url(img/attribute-3.webp) 0 0 no-repeat; }
+.attribute-4 { background: url(img/attribute-4.webp) 0 0 no-repeat; }
+.attribute-5 { background: url(img/attribute-5.webp) 0 0 no-repeat; }
+
+@media (orientation: portrait) {
+  #main {
+    transform: rotate(90deg);
+  }
+
+  #container {
+
+
+  }
+
+  #inner {
+
+  }
+
+  .template {
+
+  }
+}
