@@ -15,7 +15,8 @@ var investigators = [
       "Lore": 3,
       "Influence": 5,
       "Will": 4
-    }
+    },
+    "Story": "Hard boiled, eager eyed detective who routinely breaks the rules in an effort to catch criminals."
   },
   {
     "Name": "Florence Nightingale",
@@ -33,7 +34,8 @@ var investigators = [
       "Lore": 5,
       "Influence": 5,
       "Will": 5
-    }
+    },
+    "Story": ""
   },
   {
     "Name": "Frank Selak",
@@ -51,7 +53,8 @@ var investigators = [
       "Lore": 5,
       "Influence": 5,
       "Will": 5
-    }
+    },
+    "Story": ""
   },
   {
     "Name": "Edith Crawford",
@@ -69,7 +72,8 @@ var investigators = [
       "Lore": 4,
       "Influence": 4,
       "Will": 4
-    }
+    },
+    "Story": ""
   },
   {
     "Name": "Private Foley Jackson",
@@ -87,7 +91,8 @@ var investigators = [
       "Lore": 2,
       "Influence": 3,
       "Will": 4
-    }
+    },
+    "Story": ""
   },
   {
     "Name": "Edith Crawford",
@@ -105,6 +110,7 @@ var investigators = [
       "Lore": 4,
       "Influence": 4,
       "Will": 4
-    }
+    },
+    "Story": ""
   }
 ];

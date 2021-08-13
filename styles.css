@@ -56,18 +56,46 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   position: absolute;
 }
 
-.template {
-  position: relative;
+.template, .template .inner, .front, .back {
   display: block;
   width: 1406px;
   height: 815px;
-  /**max-width: 938px;
-  max-height: 544px;**/
-  background: url(img/template.webp) 0 0 no-repeat;
-  /**background-size: cover;**/
   margin: 0 auto;
+}
+
+.template {
+  position: relative;
   float: left;
+  overflow: hidden;
+}
+
+.template .inner {
+  position: absolute;
+  height: 1630px;
+}
+
+.front {
+  position: relative;
+  background: url(img/template.webp) 0 0 no-repeat;
   z-index: initial;
+}
+
+.back {
+  position: relative;
+  background: url(img/templateback.webp) 0 0 no-repeat;
+}
+
+#story {
+  position: absolute;
+  top: 290px;
+  left: 205px;
+  width: 1025px;
+  height: 425px;
+  text-align: left;
+  font-family: 'EB Garamond', serif;
+  font-size: 30px;
+  vertical-align: middle;
+  font-style: italic;
 }
 
 #profile-image {

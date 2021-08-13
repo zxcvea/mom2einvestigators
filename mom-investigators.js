@@ -10,6 +10,7 @@ var InvestigatorSheet = {
   WINDOW_HEIGHT: 0,
   INNER_LEFT: 0,
   INVESTIGATOR_INDEX: 0,
+  SHOW_STORY: false,
   FULLSCREEN: false,
 
   Setup: function() {
@@ -29,8 +30,9 @@ var InvestigatorSheet = {
     var ability = '<div id="ability" class="noselect">' + Dictionary.Replace(investigator.Ability) + '</div>';
     var stats = '<div id="stats"><div id="stats-damage" class="stat-' + investigator.Stats.Damage + '"></div><div id="stats-horror" class="stat-' + investigator.Stats.Horror + '"></div></div>';
     var attributes = '<div id="attributes"><div id="attributes-strength" class="attribute-' + investigator.Attributes.Strength + '"></div><div id="attributes-agility" class="attribute-' + investigator.Attributes.Agility + '"></div><div id="attributes-observation" class="attribute-' + investigator.Attributes.Observation + '"></div><div id="attributes-lore" class="attribute-' + investigator.Attributes.Lore + '"></div><div id="attributes-influence" class="attribute-' + investigator.Attributes.Influence + '"></div><div id="attributes-will" class="attribute-' + investigator.Attributes.Will + '"></div></div>';
+    var story = '<div id="story">' + investigator.Story + '</div>';
 
-    var template = '<div class="template">' + profile + ability + stats + attributes + '</div>';
+    var template = '<div class="template"><div class="inner"><div class="front">' + profile + ability + stats + attributes + '</div><div class="back">' + story + '</div></div></div>';
     $('#inner').append(template);
   },
 
@@ -40,7 +42,7 @@ var InvestigatorSheet = {
     });
   },
 
-  Swipe: function(direction) {
+  Navigate: function(direction) {
     if (direction == 'right' && InvestigatorSheet.INVESTIGATOR_INDEX == (investigators.length - 1)) {
       return;
     }
@@ -59,7 +61,25 @@ var InvestigatorSheet = {
     InvestigatorSheet.INNER_LEFT = movePos;
     $('#inner').animate({
       left: movePos + 'px'
-    }, 300);
+    }, 300, function() {
+      $('.template .inner').css('top', '0');
+      InvestigatorSheet.SHOW_STORY = false;
+    });
+  },
+
+  ShowStory: function(direction) {
+    if (direction == 'up' && !InvestigatorSheet.SHOW_STORY) {
+      InvestigatorSheet.SHOW_STORY = true;
+      var movePos = $('#container').height();
+      $('.inner:eq(' + InvestigatorSheet.INVESTIGATOR_INDEX + ')').animate({
+        top: -movePos + 'px'
+      }, 300);
+    } else if (direction == 'down' && InvestigatorSheet.SHOW_STORY) {
+      InvestigatorSheet.SHOW_STORY = false;
+      $('.inner:eq(' + InvestigatorSheet.INVESTIGATOR_INDEX + ')').animate({
+        top: '0'
+      }, 300);
+    }
   },
 
   Scale: function() {
@@ -102,33 +122,33 @@ var InvestigatorSheet = {
     hammer.on("swipeleft", function(ev) {
       var ratio = $(window).width() / $(window).height();
       if (ratio >= 1) {
-        InvestigatorSheet.Swipe('right');
+        InvestigatorSheet.Navigate('right');
       } else {
-
+        InvestigatorSheet.ShowStory('down');
       }
     });
     hammer.on("swiperight", function(ev) {
       var ratio = $(window).width() / $(window).height();
       if (ratio >= 1) {
-        InvestigatorSheet.Swipe('left');
+        InvestigatorSheet.Navigate('left');
       } else {
-
+        InvestigatorSheet.ShowStory('up');
       }
     });
     hammer.on("swipeup", function(ev) {
       var ratio = $(window).width() / $(window).height();
       if (ratio < 1) {
-        InvestigatorSheet.Swipe('right');
+        InvestigatorSheet.Navigate('right');
       } else {
-
+        InvestigatorSheet.ShowStory('up');
       }
     });
     hammer.on("swipedown", function(ev) {
       var ratio = $(window).width() / $(window).height();
       if (ratio < 1) {
-        InvestigatorSheet.Swipe('left');
+        InvestigatorSheet.Navigate('left');
       } else {
-
+        InvestigatorSheet.ShowStory('down');
       }
     });
 
