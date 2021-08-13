@@ -22,7 +22,7 @@ var investigators = [
     "Name": "Florence Nightingale",
     "Job": "Nurse",
     "Image": "img/profile-nurse.webp",
-    "Ability": "Once per round, you may heal you or another investigator. Discard Horror and/or Damage equal to a {will} check.",
+    "Ability": "{action} You may heal you or another investigator. Discard Horror and/or Damage equal to the {will} check of the patient.",
     "Stats": {
       "Damage": 6,
       "Horror": 8
@@ -41,7 +41,7 @@ var investigators = [
     "Name": "Frank Selak",
     "Job": "Gambler/Highroller",
     "Image": "img/profile-gambler.webp",
-    "Ability": "When resolving a test, you may convert any {?} to {success} and reroll any failed die at the cost of receiving 1 Damage or Horror.",
+    "Ability": "When resolving a test, you may convert any {?} to {success} and reroll any failed die at the cost of receiving 1 facedown Horror.",
     "Stats": {
       "Damage": 5,
       "Horror": 5
@@ -54,13 +54,13 @@ var investigators = [
       "Influence": 5,
       "Will": 5
     },
-    "Story": ""
+    "Story": "Considered the luckiest man alive! Everywhere he goes, from Vegas"
   },
   {
     "Name": "Edith Crawford",
     "Job": "Governess",
     "Image": "img/profile-governess.webp",
-    "Ability": "Once per round, you or another investigator may reroll any failed die when resolving a test.",
+    "Ability": "Once per round, you may reroll any failed die when resolving a test for yourself or on behalf of another investigator.",
     "Stats": {
       "Damage": 5,
       "Horror": 9
@@ -79,7 +79,7 @@ var investigators = [
     "Name": "Private Foley Jackson",
     "Job": "Soldier",
     "Image": "img/profile-soldier.webp",
-    "Ability": "When attacking a monster, you deal 1 damage per {success} in addition to the damage result. If you fail a test, you deal 1 damage.",
+    "Ability": "When attacking a monster, you deal 1 Damage per {success} in addition to the damage result. If you fail the attack, you deal 1 Damage and receive 1 Damage.",
     "Stats": {
       "Damage": 7,
       "Horror": 7
