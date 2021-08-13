@@ -96,12 +96,11 @@ var InvestigatorSheet = {
   },
 
   Events: function() {
-    var ratio = $(window).width() / $(window).height();
-
     var hitArea = document.getElementById('container');
     var hammer = new Hammer(hitArea);
     hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
     hammer.on("swipeleft", function(ev) {
+      var ratio = $(window).width() / $(window).height();
       if (ratio >= 1) {
         InvestigatorSheet.Swipe('right');
       } else {
@@ -109,6 +108,7 @@ var InvestigatorSheet = {
       }
     });
     hammer.on("swiperight", function(ev) {
+      var ratio = $(window).width() / $(window).height();
       if (ratio >= 1) {
         InvestigatorSheet.Swipe('left');
       } else {
@@ -116,6 +116,7 @@ var InvestigatorSheet = {
       }
     });
     hammer.on("swipeup", function(ev) {
+      var ratio = $(window).width() / $(window).height();
       if (ratio < 1) {
         InvestigatorSheet.Swipe('right');
       } else {
@@ -123,6 +124,7 @@ var InvestigatorSheet = {
       }
     });
     hammer.on("swipedown", function(ev) {
+      var ratio = $(window).width() / $(window).height();
       if (ratio < 1) {
         InvestigatorSheet.Swipe('left');
       } else {
