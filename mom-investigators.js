@@ -80,16 +80,32 @@ var InvestigatorSheet = {
     var hitArea = document.getElementById('container');
     var mc = new Hammer(hitArea);
     mc.on("swipeleft", function(ev) {
-      InvestigatorSheet.Swipe('right');
+      if (ratio >= 1) {
+        InvestigatorSheet.Swipe('right');
+      } else {
+
+      }
     });
     mc.on("swiperight", function(ev) {
-      InvestigatorSheet.Swipe('left');
+      if (ratio >= 1) {
+        InvestigatorSheet.Swipe('left');
+      } else {
+
+      }
     });
     mc.on("swipeup", function(ev) {
+      if (ratio < 1) {
+        InvestigatorSheet.Swipe('left');
+      } else {
 
+      }
     });
     mc.on("swipedown", function(ev) {
+      if (ratio < 1) {
+        InvestigatorSheet.Swipe('right');
+      } else {
 
+      }
     });
 
     $(document).click(function() {
