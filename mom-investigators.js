@@ -8,12 +8,20 @@ var InvestigatorSheet = {
   DEFAULT_HEIGHT: 815,
   WINDOW_WIDTH: 0,
   WINDOW_HEIGHT: 0,
+  INNER_LEFT: 0,
   INVESTIGATOR_INDEX: 0,
+  FULLSCREEN: false,
 
   Setup: function() {
     var container = '<div id="main"><div id="container"><div id="inner"></div></div></div>';
     $('body').append(container);
     $('#inner').width(investigators.length * $('#container').width());
+
+    var enterfsBtn = '<a href="javascript:void();" id="btn-enterfs"><svg viewbox="0 0 40 40"><path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" /></svg></a>';
+    var exitfsBtn = '<a href="javascript:void();" id="btn-exitfs"><svg viewbox="0 0 40 40"><path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" /></svg></a>';
+    $('#container').append(enterfsBtn);
+    $('#container').append(exitfsBtn);
+    $('#btn-exitfs').hide();
   },
 
   BuildTemplate: function(investigator) {
@@ -42,12 +50,13 @@ var InvestigatorSheet = {
     }
 
     InvestigatorSheet.INVESTIGATOR_INDEX = (direction == 'right') ? InvestigatorSheet.INVESTIGATOR_INDEX + 1 : InvestigatorSheet.INVESTIGATOR_INDEX - 1;
-    var leftPos = parseInt($('#inner').css('left'));
+    leftPos = InvestigatorSheet.INNER_LEFT;
     if (direction == 'right') {
       movePos = leftPos - $('#container').width();
     } else {
       movePos = leftPos + $('#container').width();
     }
+    InvestigatorSheet.INNER_LEFT = movePos;
     $('#inner').animate({
       left: movePos + 'px'
     }, 300);
@@ -56,15 +65,27 @@ var InvestigatorSheet = {
   Scale: function() {
     var scale, origin;
 
-    var ratio = $(window).width() / $(window).height();
-    if (ratio >= 1 && ($(window).width() > InvestigatorSheet.DEFAULT_WIDTH)) {
-      scale = 1;
-    } else if (ratio >= 1) {
-      scale = $(window).width() / InvestigatorSheet.DEFAULT_WIDTH;
-    } else if (ratio < 1 && ($(window).height() > InvestigatorSheet.DEFAULT_WIDTH)) {
-      scale = 1;
-    } else if (ratio < 1 ) {
-      scale = $(window).height() / InvestigatorSheet.DEFAULT_WIDTH;
+    var lr = InvestigatorSheet.DEFAULT_WIDTH / InvestigatorSheet.DEFAULT_HEIGHT;
+    var pr = InvestigatorSheet.DEFAULT_HEIGHT / InvestigatorSheet.DEFAULT_WIDTH;
+    var wr = $(window).width() / $(window).height();
+    if (wr >= 1) {
+      // landscape
+      if ($(window).width() >= InvestigatorSheet.DEFAULT_WIDTH && $(window).height() >= InvestigatorSheet.DEFAULT_HEIGHT) {
+        scale = 1;
+      } else if (wr >= lr) {
+        scale = $(window).height() / InvestigatorSheet.DEFAULT_HEIGHT;
+      } else {
+        scale = $(window).width() / InvestigatorSheet.DEFAULT_WIDTH;
+      }
+    } else {
+      // portrait
+      if ($(window).height() >= InvestigatorSheet.DEFAULT_WIDTH && $(window).width() >= InvestigatorSheet.DEFAULT_HEIGHT) {
+        scale = 1;
+      } else if (wr <= pr) {
+        scale = $(window).width() / InvestigatorSheet.DEFAULT_HEIGHT;
+      } else {
+        scale = $(window).height() / InvestigatorSheet.DEFAULT_WIDTH;
+      }
     }
 
     $('#container').css({
@@ -114,6 +135,28 @@ var InvestigatorSheet = {
         InvestigatorSheet.Scale();
       }
     });
+
+    $(document).on('click', '#btn-enterfs', function(){
+      InvestigatorSheet.ToggleFullscreen();
+    });
+
+    $(document).on('click', '#btn-exitfs', function(){
+      InvestigatorSheet.ToggleFullscreen();
+    });
+  },
+
+  ToggleFullscreen: function() {
+    if (!InvestigatorSheet.FULLSCREEN) {
+      InvestigatorSheet.FULLSCREEN = true;
+      document.documentElement.requestFullscreen();
+      $('#btn-enterfs').hide();
+      $('#btn-exitfs').show();
+    } else {
+      InvestigatorSheet.FULLSCREEN = false;
+      document.exitFullscreen();
+      $('#btn-enterfs').show();
+      $('#btn-exitfs').hide();
+    }
   },
 
   Init: function() {
