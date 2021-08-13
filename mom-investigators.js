@@ -78,31 +78,32 @@ var InvestigatorSheet = {
     var ratio = $(window).width() / $(window).height();
 
     var hitArea = document.getElementById('container');
-    var mc = new Hammer(hitArea);
-    mc.on("swipeleft", function(ev) {
+    var hammer = new Hammer(hitArea);
+    hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    hammer.on("swipeleft", function(ev) {
       if (ratio >= 1) {
         InvestigatorSheet.Swipe('right');
       } else {
 
       }
     });
-    mc.on("swiperight", function(ev) {
+    hammer.on("swiperight", function(ev) {
       if (ratio >= 1) {
         InvestigatorSheet.Swipe('left');
       } else {
 
       }
     });
-    mc.on("swipeup", function(ev) {
+    hammer.on("swipeup", function(ev) {
       if (ratio < 1) {
-        InvestigatorSheet.Swipe('left');
+        InvestigatorSheet.Swipe('right');
       } else {
 
       }
     });
-    mc.on("swipedown", function(ev) {
+    hammer.on("swipedown", function(ev) {
       if (ratio < 1) {
-        InvestigatorSheet.Swipe('right');
+        InvestigatorSheet.Swipe('left');
       } else {
 
       }
