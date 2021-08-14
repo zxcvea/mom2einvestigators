@@ -3,6 +3,18 @@ html { text-align: left; }
 div { border: 0; }
 a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration: none; outline: 0; }
 .clear { clear: both; height: 0; }
+
+input {
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none; /*remove the resize handle on the bottom right*/
+  background: none;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -27,7 +39,7 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   right: 0;
   width: 80px;
   height: 80px;
-  z-index: 150;
+  z-index: 99999;
 }
 
 #btn-enterfs { background: url(img/btn_expand.webp) 0 0 no-repeat; }
@@ -41,7 +53,7 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   width: 80px;
   height: 80px;
   background: url(img/icon_settings.webp) 0 0 no-repeat;
-  z-index: 150;
+  z-index: 99999;
 }
 
 #btn-exit-settings {
@@ -99,8 +111,41 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   margin: 0 0 20px 0;
 }
 
-#settings h2 {
+#settings label {
   font-weight: bold;
+  display: block;
+}
+
+#settings input {
+  width: 420px;
+  height: 63px;
+  background: url(img/input.webp) 0 0 no-repeat;
+  color: #a6a6a6;
+  padding: 0px 20px;
+  font-size: 18px;
+  float: left;
+  margin-right: 15px;
+}
+
+#settings a.btn {
+  display: block;
+  width: 150px;
+  height: 56px;
+  background: url(img/btn0.webp) 0 0 no-repeat;
+  text-align: center;
+  line-height: 56px;
+  color: #885128;
+  float: left;
+  margin-top: 4px;
+  font-size: 24px;
+}
+
+#settings a.btn:hover {
+  background: url(img/btn1.webp) 0 0 no-repeat;
+}
+
+#settings a.btn:active {
+  background: url(img/btn2.webp) 0 0 no-repeat;
 }
 
 #inner {

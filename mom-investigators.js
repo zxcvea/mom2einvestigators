@@ -13,6 +13,31 @@ var InvestigatorSheet = {
   DISPLAY_SETTINGS: false,
   SHOW_STORY: false,
   FULLSCREEN: false,
+  DEFAULTSOURCE: 'investigator-presets.js',
+  DATASOURCE: 'investigator-presets.js',
+
+  LoadJsScript: function(scriptUrl) {
+    const script = document.createElement('script');
+    script.src = scriptUrl;
+    document.body.appendChild(script);
+
+    return new Promise((res, rej) => {
+      script.onload = function() {
+        res();
+      }
+      script.onerror = function () {
+        rej();
+      }
+    });
+  },
+
+  ChangeDatasource: function(setItems){
+    $("#datascript").remove();
+    InvestigatorSheet.LoadJsScript(InvestigatorSheet.DATASOURCE)
+      .then(() => {
+        InvestigatorSheet.Refresh();
+      });
+  },
 
   Setup: function() {
     var container = '<div id="main"><div id="container"><div id="inner"></div></div></div>';
@@ -26,7 +51,7 @@ var InvestigatorSheet = {
     $('#container').append(enterfsBtn);
     $('#container').append(exitfsBtn);
 
-    var settingsCtn = '<div id="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding"><h2>Settings</h2><label>Data Source:</label> <input type="text" id="datasource" /> <a href="javascript:void(0);" id="btn-reset-data">Reset</a></div></div>';
+    var settingsCtn = '<div id="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding"><h2>Settings</h2><label>Custom Investigators:</label><p>To use your own custom investigators, paste the location of your custom Investigator data JS file.</p><input type="text" id="datasource" /> <a href="javascript:void(0);" id="btn-update-data" class="btn">Update</a><div class="clear">&nbsp;</div><a href="javascript:void(0);" id="btn-reset-data" class="btn">Reset</a></div></div>';
     $('#container').append(settingsCtn);
     $('#btn-exitfs').hide();
   },
@@ -46,6 +71,11 @@ var InvestigatorSheet = {
     jQuery.each(investigators, function(index, investigator) {
       InvestigatorSheet.BuildTemplate(investigator);
     });
+  },
+
+  Refresh: function() {
+    $('.template').remove();
+    InvestigatorSheet.CreateInvestigators();
   },
 
   Navigate: function(direction) {
@@ -188,6 +218,7 @@ var InvestigatorSheet = {
         }, 300, function() {
           InvestigatorSheet.DISPLAY_SETTINGS = true;
         });
+        $('#btn-exitfs, #btn-enterfs, #btn-settings').hide();
       }
     });
 
@@ -199,7 +230,26 @@ var InvestigatorSheet = {
         }, 300, function() {
           InvestigatorSheet.DISPLAY_SETTINGS = false;
         });
+        if (InvestigatorSheet.FULLSCREEN) {
+          $('#btn-enterfs').hide();
+          $('#btn-exitfs, #btn-settings').show();
+        } else {
+          $('#btn-enterfs, #btn-settings').show();
+          $('#btn-exitfs').hide();
+        }
       }
+    });
+
+    $(document).on('click', '#btn-update-data', function(){
+      var datasource = $('#datasource').val();
+      InvestigatorSheet.DATASOURCE = datasource;
+      InvestigatorSheet.ChangeDatasource();
+    });
+
+    $(document).on('click', '#btn-reset-data', function(){
+      $('#datasource').val('');
+      InvestigatorSheet.DATASOURCE = InvestigatorSheet.DEFAULTSOURCE;
+      InvestigatorSheet.ChangeDatasource();
     });
   },
 
