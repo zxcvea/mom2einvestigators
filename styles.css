@@ -27,6 +27,32 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   right: 0;
   width: 80px;
   height: 80px;
+  z-index: 150;
+}
+
+#btn-enterfs { background: url(img/btn_expand.webp) 0 0 no-repeat; }
+#btn-exitfs { background: url(img/btn_close.webp) 0 0 no-repeat; }
+
+#btn-settings {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background: url(img/icon_settings.webp) 0 0 no-repeat;
+  z-index: 150;
+}
+
+#btn-exit-settings {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: url(img/btn_close.webp) 0 0 no-repeat;
+  z-index: 99999;
 }
 
 #main {
@@ -46,6 +72,35 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+#settings {
+  display: block;
+  margin: 0 auto;
+  width: 1406px;
+  height: 815px;
+  position: absolute;
+  top: -815px;
+  left: 0;
+  background: url(img/bg.webp) 0 0 no-repeat;
+  font-family: 'EB Garamond', serif;
+  font-size: 30px;
+  z-index: 200;
+}
+
+#settings .padding {
+  padding: 100px 100px 0 100px;
+}
+
+#settings h2 {
+  font-size: 50px;
+  vertical-align: middle;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+}
+
+#settings h2 {
+  font-weight: bold;
 }
 
 #inner {
@@ -95,16 +150,17 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   font-family: 'EB Garamond', serif;
   font-size: 30px;
   vertical-align: middle;
-  font-style: italic;
+  /**font-style: italic;**/
 }
 
 #profile-image {
   position: absolute;
   width: 400px;
   height: 480px;
-  top: 105px;
+  top: 115px;
   left: 0;
   z-index: -1;
+  transform: rotate(-10deg);
 }
 
 #profile-image img {
@@ -119,7 +175,7 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   width: 450px;
   height: 50px;
   top: 630px;
-  left: 50px;
+  left: 32px;
   transform: rotate(-10deg);
   text-align: center;
   font-family: 'Suez One', serif;
@@ -129,10 +185,10 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
 #profile-job {
   position: absolute;
   display: block;
-  width: 335px;
+  width: 450px;
   height: 30px;
   top: 680px;
-  left: 98px;
+  left: 32px;
   transform: rotate(-10deg);
   text-align: center;
   font-family: 'IM Fell English SC', serif;
@@ -143,8 +199,7 @@ a, a:link, a:visited, a:hover { color: #000; font-style: normal; text-decoration
   position: absolute;
   display: block;
   width: 410px;
-  height: 180px;
-  top: 460px;
+  top: 445px;
   left: 540px;
   transform: rotate(-8deg);
   text-align: center;
@@ -212,16 +267,12 @@ span.will { background: url(img/text-will.webp) center center no-repeat; }
     transform: rotate(90deg);
   }
 
-  #container {
-
-
+  #btn-exit-settings {
+    top: 0;
+    left: 0;
   }
 
-  #inner {
-
-  }
-
-  .template {
-
+  #settings .padding {
+    transform: translate(-45%) rotate(-90deg);
   }
 }

@@ -10,6 +10,7 @@ var InvestigatorSheet = {
   WINDOW_HEIGHT: 0,
   INNER_LEFT: 0,
   INVESTIGATOR_INDEX: 0,
+  DISPLAY_SETTINGS: false,
   SHOW_STORY: false,
   FULLSCREEN: false,
 
@@ -18,10 +19,15 @@ var InvestigatorSheet = {
     $('body').append(container);
     $('#inner').width(investigators.length * $('#container').width());
 
-    var enterfsBtn = '<a href="javascript:void();" id="btn-enterfs"><svg viewbox="0 0 40 40"><path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" /></svg></a>';
-    var exitfsBtn = '<a href="javascript:void();" id="btn-exitfs"><svg viewbox="0 0 40 40"><path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" /></svg></a>';
+    var settingsBtn = '<a href="javascript:void(0);" id="btn-settings">&nbsp;</a>';
+    var enterfsBtn = '<a href="javascript:void(0);" id="btn-enterfs">&nbsp;</a>';
+    var exitfsBtn = '<a href="javascript:void(0);" id="btn-exitfs">&nbsp;</a>';
+    $('#container').append(settingsBtn);
     $('#container').append(enterfsBtn);
     $('#container').append(exitfsBtn);
+
+    var settingsCtn = '<div id="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding"><h2>Settings</h2><label>Data Source:</label> <input type="text" id="datasource" /> <a href="javascript:void(0);" id="btn-reset-data">Reset</a></div></div>';
+    $('#container').append(settingsCtn);
     $('#btn-exitfs').hide();
   },
 
@@ -30,7 +36,7 @@ var InvestigatorSheet = {
     var ability = '<div id="ability" class="noselect">' + Dictionary.Replace(investigator.Ability) + '</div>';
     var stats = '<div id="stats"><div id="stats-damage" class="stat-' + investigator.Stats.Damage + '"></div><div id="stats-horror" class="stat-' + investigator.Stats.Horror + '"></div></div>';
     var attributes = '<div id="attributes"><div id="attributes-strength" class="attribute-' + investigator.Attributes.Strength + '"></div><div id="attributes-agility" class="attribute-' + investigator.Attributes.Agility + '"></div><div id="attributes-observation" class="attribute-' + investigator.Attributes.Observation + '"></div><div id="attributes-lore" class="attribute-' + investigator.Attributes.Lore + '"></div><div id="attributes-influence" class="attribute-' + investigator.Attributes.Influence + '"></div><div id="attributes-will" class="attribute-' + investigator.Attributes.Will + '"></div></div>';
-    var story = '<div id="story">' + investigator.Story + '</div>';
+    var story = '<div id="story">' + Dictionary.Format(investigator.Story) + '</div>';
 
     var template = '<div class="template"><div class="inner"><div class="front">' + profile + ability + stats + attributes + '</div><div class="back">' + story + '</div></div></div>';
     $('#inner').append(template);
@@ -120,35 +126,44 @@ var InvestigatorSheet = {
     var hammer = new Hammer(hitArea);
     hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
     hammer.on("swipeleft", function(ev) {
-      var ratio = $(window).width() / $(window).height();
-      if (ratio >= 1) {
-        InvestigatorSheet.Navigate('right');
-      } else {
-        InvestigatorSheet.ShowStory('down');
+      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+        var ratio = $(window).width() / $(window).height();
+        if (ratio >= 1) {
+          InvestigatorSheet.Navigate('right');
+        } else {
+          InvestigatorSheet.ShowStory('down');
+        }
       }
     });
     hammer.on("swiperight", function(ev) {
-      var ratio = $(window).width() / $(window).height();
-      if (ratio >= 1) {
-        InvestigatorSheet.Navigate('left');
-      } else {
-        InvestigatorSheet.ShowStory('up');
+      console.log(0);
+      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+        var ratio = $(window).width() / $(window).height();
+        if (ratio >= 1) {
+          InvestigatorSheet.Navigate('left');
+        } else {
+          InvestigatorSheet.ShowStory('up');
+        }
       }
     });
     hammer.on("swipeup", function(ev) {
-      var ratio = $(window).width() / $(window).height();
-      if (ratio < 1) {
-        InvestigatorSheet.Navigate('right');
-      } else {
-        InvestigatorSheet.ShowStory('up');
+      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+        var ratio = $(window).width() / $(window).height();
+        if (ratio < 1) {
+          InvestigatorSheet.Navigate('right');
+        } else {
+          InvestigatorSheet.ShowStory('up');
+        }
       }
     });
     hammer.on("swipedown", function(ev) {
-      var ratio = $(window).width() / $(window).height();
-      if (ratio < 1) {
-        InvestigatorSheet.Navigate('left');
-      } else {
-        InvestigatorSheet.ShowStory('down');
+      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+        var ratio = $(window).width() / $(window).height();
+        if (ratio < 1) {
+          InvestigatorSheet.Navigate('left');
+        } else {
+          InvestigatorSheet.ShowStory('down');
+        }
       }
     });
 
@@ -164,6 +179,27 @@ var InvestigatorSheet = {
 
     $(document).on('click', '#btn-exitfs', function(){
       InvestigatorSheet.ToggleFullscreen();
+    });
+
+    $(document).on('click', '#btn-settings', function(){
+      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+        $('#settings').animate({
+          top: '0'
+        }, 300, function() {
+          InvestigatorSheet.DISPLAY_SETTINGS = true;
+        });
+      }
+    });
+
+    $(document).on('click', '#btn-exit-settings', function(){
+      if (InvestigatorSheet.DISPLAY_SETTINGS) {
+        var movePos = $('#container').height();
+        $('#settings').animate({
+          top: -movePos + 'px'
+        }, 300, function() {
+          InvestigatorSheet.DISPLAY_SETTINGS = false;
+        });
+      }
     });
   },
 
@@ -193,6 +229,9 @@ var InvestigatorSheet = {
 var Dictionary = {
 
   Replace: function (text) {
+    text = text.replace('\n', '<br />');
+    text = text.replace('{{', '<strong>');
+    text = text.replace('}}', '</strong>');
     text = text.replace('{action}', '<strong>Action:</strong>');
     text = text.replace('{focused}', '<strong>focused</strong>');
     text = text.replace('{dazed}', '<strong>dazed</strong>');
@@ -213,6 +252,15 @@ var Dictionary = {
     text = text.replace('{will}', '<span class="will"></span>');
     text = text.replace('{?}', '<span class="investigation"></span>');
     text = text.replace('{success}', '<span class="success"></span>');
+    return text;
+  },
+
+  Format: function(text) {
+    text = text.replace('\n\n', '<br /><br />');
+    text = text.replace('{', '<i>&quot;');
+    text = text.replace('}', '&quot;</i>');
+    text = text.replace('[', '<strong>');
+    text = text.replace(']', '</strong>');
     return text;
   }
 
