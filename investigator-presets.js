@@ -96,7 +96,7 @@ var investigators = [
   },
   {
     "Name": "Edith Crawford",
-    "Job": "Damsel in distress",
+    "Job": "Nightclub Singer",
     "Image": "img/profile-damsel.webp",
     "Ability": "{action} You may call for backup. Move another investigator to your space and they become {focused} and may discard 1 Damage or Horror.",
     "Stats": {
