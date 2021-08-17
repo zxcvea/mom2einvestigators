@@ -1,8 +1,55 @@
 $(document).ready(function() {
-  InvestigatorSheet.Init();
+  App.Start();
 });
 
-var InvestigatorSheet = {
+var Investigators;
+
+var GlobalVariables = {
+  DEFAULTSOURCE: 'investigator-presets.js',
+  DATASOURCE: 'investigator-presets.js',
+  RESET: false,
+  STARTUP: true,
+};
+
+var App = {
+
+  Process: function(url) {
+    url = Data.Clean(url);
+    $.ajax({
+      dataType: "json",
+      url: url,
+      async: false,
+      success: function(data) {
+        Investigators = data.Investigators;
+        if (GlobalVariables.STARTUP) {
+          Template.Init();
+          GlobalVariables.STARTUP = false;
+        } else {
+          Template.Refresh();
+          if (GlobalVariables.DATASOURCE != GlobalVariables.DEFAULTSOURCE && !GlobalVariables.RESET) {
+            $('#data-message').removeClass('error');
+            $('#data-message').text('Datasource updated. Using custom Investigators.');
+          } else if (GlobalVariables.RESET) {
+            $('#data-message').removeClass('error');
+            $('#data-message').text('Using Default Investigators.');
+          }
+        }
+      },
+      error: function() {
+        $('#data-message').addClass('error');
+        $('#data-message').text('Could not get data.');
+        alert(0);
+      }
+    });
+  },
+
+  Start: function() {
+    App.Process(GlobalVariables.DATASOURCE);
+  }
+
+};
+
+var Template = {
 
   DEFAULT_WIDTH: 1406,
   DEFAULT_HEIGHT: 815,
@@ -13,37 +60,10 @@ var InvestigatorSheet = {
   DISPLAY_SETTINGS: false,
   SHOW_STORY: false,
   FULLSCREEN: false,
-  DEFAULTSOURCE: 'investigator-presets.js',
-  DATASOURCE: 'investigator-presets.js',
-
-  LoadJsScript: function(scriptUrl) {
-    const script = document.createElement('script');
-    script.src = scriptUrl;
-    document.body.appendChild(script);
-
-    return new Promise((res, rej) => {
-      script.onload = function() {
-        res();
-      }
-      script.onerror = function () {
-        rej();
-      }
-    });
-  },
-
-  ChangeDatasource: function(setItems){
-    $("#datascript").remove();
-    InvestigatorSheet.LoadJsScript(InvestigatorSheet.DATASOURCE)
-      .then(() => {
-        InvestigatorSheet.Refresh();
-      });
-  },
 
   Setup: function() {
     var container = '<div id="main"><div id="container"><div id="inner"></div></div></div>';
     $('body').append(container);
-    $('#inner').width(investigators.length * $('#container').width());
-
     var settingsBtn = '<a href="javascript:void(0);" id="btn-settings">&nbsp;</a>';
     var enterfsBtn = '<a href="javascript:void(0);" id="btn-enterfs">&nbsp;</a>';
     var exitfsBtn = '<a href="javascript:void(0);" id="btn-exitfs">&nbsp;</a>';
@@ -51,68 +71,72 @@ var InvestigatorSheet = {
     $('#container').append(enterfsBtn);
     $('#container').append(exitfsBtn);
 
-    var settingsCtn = '<div id="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding"><h2>Settings</h2><label>Custom Investigators:</label><p>To use your own custom investigators, paste the location of your custom Investigator data JS file.</p><input type="text" id="datasource" /> <a href="javascript:void(0);" id="btn-update-data" class="btn">Update</a><div class="clear">&nbsp;</div><a href="javascript:void(0);" id="btn-reset-data" class="btn">Reset</a></div></div>';
-    $('#container').append(settingsCtn);
-    $('#btn-exitfs').hide();
+    var settingsCtn = '<div id="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding"><h2>Settings</h2><label>Custom Investigators:</label><p>To use your own custom investigators, paste the url of your data JS file.</p><p><span id="data-message"></span></p><div class="input-ctn"><input type="text" id="datasource" /></div><a href="javascript:void(0);" id="btn-update-data" class="btn">Update</a><a href="javascript:void(0);" id="btn-reset-data" class="btn">Reset</a></div></div>';
+    $('body').append(settingsCtn);
+    $('#btn-exitfs, #settings').hide();
   },
 
   BuildTemplate: function(investigator) {
     var profile = '<div id="profile-image"><img src="' + investigator.Image + '" /></div><div id="profile-name" class="noselect">' + investigator.Name + '</div><div id="profile-job" class="noselect">' + investigator.Job + '</div>';
-    var ability = '<div id="ability" class="noselect">' + Dictionary.Replace(investigator.Ability) + '</div>';
+    var ability = '<div id="ability" class="noselect">' + Data.Replace(investigator.Ability) + '</div>';
     var stats = '<div id="stats"><div id="stats-damage" class="stat-' + investigator.Stats.Damage + '"></div><div id="stats-horror" class="stat-' + investigator.Stats.Horror + '"></div></div>';
     var attributes = '<div id="attributes"><div id="attributes-strength" class="attribute-' + investigator.Attributes.Strength + '"></div><div id="attributes-agility" class="attribute-' + investigator.Attributes.Agility + '"></div><div id="attributes-observation" class="attribute-' + investigator.Attributes.Observation + '"></div><div id="attributes-lore" class="attribute-' + investigator.Attributes.Lore + '"></div><div id="attributes-influence" class="attribute-' + investigator.Attributes.Influence + '"></div><div id="attributes-will" class="attribute-' + investigator.Attributes.Will + '"></div></div>';
-    var story = '<div id="story">' + Dictionary.Format(investigator.Story) + '</div>';
+    var story = '<div id="story">' + Data.Format(investigator.Story) + '</div>';
 
     var template = '<div class="template"><div class="inner"><div class="front">' + profile + ability + stats + attributes + '</div><div class="back">' + story + '</div></div></div>';
     $('#inner').append(template);
   },
 
   CreateInvestigators: function() {
-    jQuery.each(investigators, function(index, investigator) {
-      InvestigatorSheet.BuildTemplate(investigator);
+    jQuery.each(Investigators, function(index, investigator) {
+      Template.BuildTemplate(investigator);
     });
+
   },
 
   Refresh: function() {
     $('.template').remove();
-    InvestigatorSheet.CreateInvestigators();
+    $('#inner').css('left', 0);
+    Template.INNER_LEFT = 0;
+    Template.CreateInvestigators();
+    Template.INVESTIGATOR_INDEX = 0;
   },
 
   Navigate: function(direction) {
-    if (direction == 'right' && InvestigatorSheet.INVESTIGATOR_INDEX == (investigators.length - 1)) {
+    if (direction == 'right' && Template.INVESTIGATOR_INDEX == (Investigators.length - 1)) {
       return;
     }
 
-    if (direction == 'left' && InvestigatorSheet.INVESTIGATOR_INDEX == 0) {
+    if (direction == 'left' && Template.INVESTIGATOR_INDEX == 0) {
       return;
     }
 
-    InvestigatorSheet.INVESTIGATOR_INDEX = (direction == 'right') ? InvestigatorSheet.INVESTIGATOR_INDEX + 1 : InvestigatorSheet.INVESTIGATOR_INDEX - 1;
-    leftPos = InvestigatorSheet.INNER_LEFT;
+    Template.INVESTIGATOR_INDEX = (direction == 'right') ? Template.INVESTIGATOR_INDEX + 1 : Template.INVESTIGATOR_INDEX - 1;
+    leftPos = Template.INNER_LEFT;
     if (direction == 'right') {
       movePos = leftPos - $('#container').width();
     } else {
       movePos = leftPos + $('#container').width();
     }
-    InvestigatorSheet.INNER_LEFT = movePos;
+    Template.INNER_LEFT = movePos;
     $('#inner').animate({
       left: movePos + 'px'
     }, 300, function() {
       $('.template .inner').css('top', '0');
-      InvestigatorSheet.SHOW_STORY = false;
+      Template.SHOW_STORY = false;
     });
   },
 
   ShowStory: function(direction) {
-    if (direction == 'up' && !InvestigatorSheet.SHOW_STORY) {
-      InvestigatorSheet.SHOW_STORY = true;
+    if (direction == 'up' && !Template.SHOW_STORY) {
+      Template.SHOW_STORY = true;
       var movePos = $('#container').height();
-      $('.inner:eq(' + InvestigatorSheet.INVESTIGATOR_INDEX + ')').animate({
+      $('.inner:eq(' + Template.INVESTIGATOR_INDEX + ')').animate({
         top: -movePos + 'px'
       }, 300);
-    } else if (direction == 'down' && InvestigatorSheet.SHOW_STORY) {
-      InvestigatorSheet.SHOW_STORY = false;
-      $('.inner:eq(' + InvestigatorSheet.INVESTIGATOR_INDEX + ')').animate({
+    } else if (direction == 'down' && Template.SHOW_STORY) {
+      Template.SHOW_STORY = false;
+      $('.inner:eq(' + Template.INVESTIGATOR_INDEX + ')').animate({
         top: '0'
       }, 300);
     }
@@ -121,34 +145,34 @@ var InvestigatorSheet = {
   Scale: function() {
     var scale, origin;
 
-    var lr = InvestigatorSheet.DEFAULT_WIDTH / InvestigatorSheet.DEFAULT_HEIGHT;
-    var pr = InvestigatorSheet.DEFAULT_HEIGHT / InvestigatorSheet.DEFAULT_WIDTH;
+    var lr = Template.DEFAULT_WIDTH / Template.DEFAULT_HEIGHT;
+    var pr = Template.DEFAULT_HEIGHT / Template.DEFAULT_WIDTH;
     var wr = $(window).width() / $(window).height();
     if (wr >= 1) {
       // landscape
-      if ($(window).width() >= InvestigatorSheet.DEFAULT_WIDTH && $(window).height() >= InvestigatorSheet.DEFAULT_HEIGHT) {
+      if ($(window).width() >= Template.DEFAULT_WIDTH && $(window).height() >= Template.DEFAULT_HEIGHT) {
         scale = 1;
       } else if (wr >= lr) {
-        scale = $(window).height() / InvestigatorSheet.DEFAULT_HEIGHT;
+        scale = $(window).height() / Template.DEFAULT_HEIGHT;
       } else {
-        scale = $(window).width() / InvestigatorSheet.DEFAULT_WIDTH;
+        scale = $(window).width() / Template.DEFAULT_WIDTH;
       }
     } else {
       // portrait
-      if ($(window).height() >= InvestigatorSheet.DEFAULT_WIDTH && $(window).width() >= InvestigatorSheet.DEFAULT_HEIGHT) {
+      if ($(window).height() >= Template.DEFAULT_WIDTH && $(window).width() >= Template.DEFAULT_HEIGHT) {
         scale = 1;
       } else if (wr <= pr) {
-        scale = $(window).width() / InvestigatorSheet.DEFAULT_HEIGHT;
+        scale = $(window).width() / Template.DEFAULT_HEIGHT;
       } else {
-        scale = $(window).height() / InvestigatorSheet.DEFAULT_WIDTH;
+        scale = $(window).height() / Template.DEFAULT_WIDTH;
       }
     }
 
-    $('#container').css({
+    $('#container, #settings').css({
       transform: "translate(-50%, -50%) " + "scale(" + scale + ")"
     });
 
-    $('#inner').width(investigators.length * $('#container').width());
+    $('#inner').width(Investigators.length * $('#container').width());
   },
 
   Events: function() {
@@ -156,111 +180,108 @@ var InvestigatorSheet = {
     var hammer = new Hammer(hitArea);
     hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
     hammer.on("swipeleft", function(ev) {
-      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+      if (!Template.DISPLAY_SETTINGS) {
         var ratio = $(window).width() / $(window).height();
         if (ratio >= 1) {
-          InvestigatorSheet.Navigate('right');
+          Template.Navigate('right');
         } else {
-          InvestigatorSheet.ShowStory('down');
+          Template.ShowStory('down');
         }
       }
     });
     hammer.on("swiperight", function(ev) {
-      console.log(0);
-      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+      if (!Template.DISPLAY_SETTINGS) {
         var ratio = $(window).width() / $(window).height();
         if (ratio >= 1) {
-          InvestigatorSheet.Navigate('left');
+          Template.Navigate('left');
         } else {
-          InvestigatorSheet.ShowStory('up');
+          Template.ShowStory('up');
         }
       }
     });
     hammer.on("swipeup", function(ev) {
-      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+      if (!Template.DISPLAY_SETTINGS) {
         var ratio = $(window).width() / $(window).height();
         if (ratio < 1) {
-          InvestigatorSheet.Navigate('right');
+          Template.Navigate('right');
         } else {
-          InvestigatorSheet.ShowStory('up');
+          Template.ShowStory('up');
         }
       }
     });
     hammer.on("swipedown", function(ev) {
-      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
+      if (!Template.DISPLAY_SETTINGS) {
         var ratio = $(window).width() / $(window).height();
         if (ratio < 1) {
-          InvestigatorSheet.Navigate('left');
+          Template.Navigate('left');
         } else {
-          InvestigatorSheet.ShowStory('down');
+          Template.ShowStory('down');
         }
       }
     });
 
     $(document).click(function() {
-      if ($('#container').width() != InvestigatorSheet.WINDOW_WIDTH || $('#container').height() != InvestigatorSheet.WINDOW_HEIGHT) {
-        InvestigatorSheet.Scale();
+      if ($('#container').width() != Template.WINDOW_WIDTH || $('#container').height() != Template.WINDOW_HEIGHT) {
+        Template.Scale();
       }
     });
 
     $(document).on('click', '#btn-enterfs', function(){
-      InvestigatorSheet.ToggleFullscreen();
+      Template.ToggleFullscreen();
     });
 
     $(document).on('click', '#btn-exitfs', function(){
-      InvestigatorSheet.ToggleFullscreen();
+      Template.ToggleFullscreen();
     });
 
     $(document).on('click', '#btn-settings', function(){
-      if (!InvestigatorSheet.DISPLAY_SETTINGS) {
-        $('#settings').animate({
-          top: '0'
-        }, 300, function() {
-          InvestigatorSheet.DISPLAY_SETTINGS = true;
-        });
+      if (!Template.DISPLAY_SETTINGS) {
+        var height = $('#container').height();
+        $('#settings').show();
+        Template.DISPLAY_SETTINGS = true;
         $('#btn-exitfs, #btn-enterfs, #btn-settings').hide();
       }
     });
 
     $(document).on('click', '#btn-exit-settings', function(){
-      if (InvestigatorSheet.DISPLAY_SETTINGS) {
+      if (Template.DISPLAY_SETTINGS) {
         var movePos = $('#container').height();
-        $('#settings').animate({
-          top: -movePos + 'px'
-        }, 300, function() {
-          InvestigatorSheet.DISPLAY_SETTINGS = false;
-        });
-        if (InvestigatorSheet.FULLSCREEN) {
+        $('#settings').hide();
+        Template.DISPLAY_SETTINGS = false;
+        if (Template.FULLSCREEN) {
           $('#btn-enterfs').hide();
           $('#btn-exitfs, #btn-settings').show();
         } else {
           $('#btn-enterfs, #btn-settings').show();
           $('#btn-exitfs').hide();
         }
+        $('#data-message').text('');
       }
     });
 
     $(document).on('click', '#btn-update-data', function(){
+      GlobalVariables.RESET = false;
       var datasource = $('#datasource').val();
-      InvestigatorSheet.DATASOURCE = datasource;
-      InvestigatorSheet.ChangeDatasource();
+      GlobalVariables.DATASOURCE = datasource;
+      App.Process(GlobalVariables.DATASOURCE);
     });
 
     $(document).on('click', '#btn-reset-data', function(){
+      GlobalVariables.RESET = true;
       $('#datasource').val('');
-      InvestigatorSheet.DATASOURCE = InvestigatorSheet.DEFAULTSOURCE;
-      InvestigatorSheet.ChangeDatasource();
+      GlobalVariables.DATASOURCE = GlobalVariables.DEFAULTSOURCE;
+      App.Process(GlobalVariables.DATASOURCE);
     });
   },
 
   ToggleFullscreen: function() {
-    if (!InvestigatorSheet.FULLSCREEN) {
-      InvestigatorSheet.FULLSCREEN = true;
+    if (!Template.FULLSCREEN) {
+      Template.FULLSCREEN = true;
       document.documentElement.requestFullscreen();
       $('#btn-enterfs').hide();
       $('#btn-exitfs').show();
     } else {
-      InvestigatorSheet.FULLSCREEN = false;
+      Template.FULLSCREEN = false;
       document.exitFullscreen();
       $('#btn-enterfs').show();
       $('#btn-exitfs').hide();
@@ -268,15 +289,15 @@ var InvestigatorSheet = {
   },
 
   Init: function() {
-    InvestigatorSheet.Setup();
-    InvestigatorSheet.CreateInvestigators();
-    InvestigatorSheet.Events();
-    InvestigatorSheet.Scale();
+    Template.Setup();
+    Template.CreateInvestigators();
+    Template.Events();
+    Template.Scale();
   }
 
 };
 
-var Dictionary = {
+var Data = {
 
   Replace: function (text) {
     text = text.replace('\n', '<br />');
@@ -312,6 +333,14 @@ var Dictionary = {
     text = text.replace('[', '<strong>');
     text = text.replace(']', '</strong>');
     return text;
+  },
+
+  Clean: function(url) {
+    if (url.indexOf('dropbox.com') > -1) {
+      url = url.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+      url = url.replace('?dl=0', '?raw=1');
+    }
+    return url;
   }
 
 };

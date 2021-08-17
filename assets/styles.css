@@ -15,6 +15,15 @@ input {
   background: none;
 }
 
+input:focus, input:-internal-autofill-selected,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active
+{
+  background: none;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -42,8 +51,8 @@ input {
   z-index: 99999;
 }
 
-#btn-enterfs { background: url(img/btn_expand.webp) 0 0 no-repeat; }
-#btn-exitfs { background: url(img/btn_close.webp) 0 0 no-repeat; }
+#btn-enterfs { background: url(../img/btn_expand.webp) 0 0 no-repeat; }
+#btn-exitfs { background: url(../img/btn_close.webp) 0 0 no-repeat; }
 
 #btn-settings {
   display: block;
@@ -52,7 +61,7 @@ input {
   left: 0;
   width: 80px;
   height: 80px;
-  background: url(img/icon_settings.webp) 0 0 no-repeat;
+  background: url(../img/icon_settings.webp) 0 0 no-repeat;
   z-index: 99999;
 }
 
@@ -63,7 +72,7 @@ input {
   right: 0;
   width: 80px;
   height: 80px;
-  background: url(img/btn_close.webp) 0 0 no-repeat;
+  background: url(../img/btn_close.webp) 0 0 no-repeat;
   z-index: 99999;
 }
 
@@ -91,13 +100,16 @@ input {
   margin: 0 auto;
   width: 1406px;
   height: 815px;
-  position: absolute;
-  top: -815px;
-  left: 0;
-  background: url(img/bg.webp) 0 0 no-repeat;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: url(../img/bg.webp) 0 0 no-repeat;
   font-family: 'EB Garamond', serif;
   font-size: 30px;
-  z-index: 200;
+  z-index: 999999;
+  overflow: hidden;
 }
 
 #settings .padding {
@@ -111,41 +123,62 @@ input {
   margin: 0 0 20px 0;
 }
 
+#data-message {
+  display: block;
+  height: 39px;
+  color: #0f5b0d;
+}
+
+.error#data-message {
+  color: #5d0f0f;
+}
+
 #settings label {
   font-weight: bold;
   display: block;
 }
 
-#settings input {
-  width: 420px;
+#settings .input-ctn {
+  display: inline-block;
+  float: left;
+  width: 655px;
   height: 63px;
-  background: url(img/input.webp) 0 0 no-repeat;
+  background: url(../img/input-h.webp) 0 0 no-repeat;
+}
+
+#settings input {
+  width: 615px;
+  height: 63px;
+  background: none;
   color: #a6a6a6;
   padding: 0px 20px;
   font-size: 18px;
-  float: left;
-  margin-right: 15px;
 }
 
 #settings a.btn {
   display: block;
   width: 150px;
   height: 56px;
-  background: url(img/btn0.webp) 0 0 no-repeat;
+  background: url(../img/btn0.webp) 0 0 no-repeat;
   text-align: center;
   line-height: 56px;
   color: #885128;
   float: left;
   margin-top: 4px;
   font-size: 24px;
+  margin-left: 10px;
+}
+
+#settings a.btn#btn-update-data {
+  margin-left: 15px;
 }
 
 #settings a.btn:hover {
-  background: url(img/btn1.webp) 0 0 no-repeat;
+  background: url(../img/btn1.webp) 0 0 no-repeat;
 }
 
 #settings a.btn:active {
-  background: url(img/btn2.webp) 0 0 no-repeat;
+  background: url(../img/btn2.webp) 0 0 no-repeat;
 }
 
 #inner {
@@ -176,13 +209,13 @@ input {
 
 .front {
   position: relative;
-  background: url(img/template.webp) 0 0 no-repeat;
+  background: url(../img/template.webp) 0 0 no-repeat;
   z-index: initial;
 }
 
 .back {
   position: relative;
-  background: url(img/templateback.webp) 0 0 no-repeat;
+  background: url(../img/templateback.webp) 0 0 no-repeat;
 }
 
 #story {
@@ -260,14 +293,14 @@ input {
   vertical-align: middle;
 }
 
-span.investigation { background: url(img/text-investigation.webp) center center no-repeat; }
-span.success { background: url(img/text-success.webp) center center no-repeat; }
-span.strength { background: url(img/text-strength.webp) center center no-repeat; }
-span.agility { background: url(img/text-agility.webp) center center no-repeat; }
-span.observation { background: url(img/text-observation.webp) center center no-repeat; }
-span.lore { background: url(img/text-lore.webp) center center no-repeat; }
-span.influence { background: url(img/text-influence.webp) center center no-repeat; }
-span.will { background: url(img/text-will.webp) center center no-repeat; }
+span.investigation { background: url(../img/text-investigation.webp) center center no-repeat; }
+span.success { background: url(../img/text-success.webp) center center no-repeat; }
+span.strength { background: url(../img/text-strength.webp) center center no-repeat; }
+span.agility { background: url(../img/text-agility.webp) center center no-repeat; }
+span.observation { background: url(../img/text-observation.webp) center center no-repeat; }
+span.lore { background: url(../img/text-lore.webp) center center no-repeat; }
+span.influence { background: url(../img/text-influence.webp) center center no-repeat; }
+span.will { background: url(../img/text-will.webp) center center no-repeat; }
 
 #stats div {
   position: absolute;
@@ -280,11 +313,11 @@ span.will { background: url(img/text-will.webp) center center no-repeat; }
 #stats-damage { top: 29px; left: 683px; }
 #stats-horror { top: 229px; left: 733px; }
 
-.stat-5 { background: url(img/stat-5.webp) 0 0 no-repeat; }
-.stat-6 { background: url(img/stat-6.webp) 0 0 no-repeat; }
-.stat-7 { background: url(img/stat-7.webp) 0 0 no-repeat; }
-.stat-8 { background: url(img/stat-8.webp) 0 0 no-repeat; }
-.stat-9 { background: url(img/stat-9.webp) 0 0 no-repeat; }
+.stat-5 { background: url(../img/stat-5.webp) 0 0 no-repeat; }
+.stat-6 { background: url(../img/stat-6.webp) 0 0 no-repeat; }
+.stat-7 { background: url(../img/stat-7.webp) 0 0 no-repeat; }
+.stat-8 { background: url(../img/stat-8.webp) 0 0 no-repeat; }
+.stat-9 { background: url(../img/stat-9.webp) 0 0 no-repeat; }
 
 #attributes div {
   position: absolute;
@@ -301,11 +334,11 @@ span.will { background: url(img/text-will.webp) center center no-repeat; }
 #attributes-influence { top: 542px; left: 1281px; transform: rotate(1deg); }
 #attributes-will { top: 678px; left: 1273px; transform: rotate(2deg); }
 
-.attribute-1 { background: url(img/attribute-1.webp) 0 0 no-repeat; }
-.attribute-2 { background: url(img/attribute-2.webp) 0 0 no-repeat; }
-.attribute-3 { background: url(img/attribute-3.webp) 0 0 no-repeat; }
-.attribute-4 { background: url(img/attribute-4.webp) 0 0 no-repeat; }
-.attribute-5 { background: url(img/attribute-5.webp) 0 0 no-repeat; }
+.attribute-1 { background: url(../img/attribute-1.webp) 0 0 no-repeat; }
+.attribute-2 { background: url(../img/attribute-2.webp) 0 0 no-repeat; }
+.attribute-3 { background: url(../img/attribute-3.webp) 0 0 no-repeat; }
+.attribute-4 { background: url(../img/attribute-4.webp) 0 0 no-repeat; }
+.attribute-5 { background: url(../img/attribute-5.webp) 0 0 no-repeat; }
 
 @media (orientation: portrait) {
   #main {
@@ -314,10 +347,20 @@ span.will { background: url(img/text-will.webp) center center no-repeat; }
 
   #btn-exit-settings {
     top: 0;
-    left: 0;
+    right: 0;
+  }
+
+  #settings {
+    width: 815px;
+    height: 1406px;
+    background-image: url(../img/bg-vertical.webp);
   }
 
   #settings .padding {
-    transform: translate(-45%) rotate(-90deg);
+    padding: 100px 80px 0 80px;
+  }
+
+  #settings a.btn {
+    float: right;
   }
 }
