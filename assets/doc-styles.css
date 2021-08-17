@@ -1495,3 +1495,14 @@ select {
 .will { background-image: url(../img/text-will.webp); }
 
 .clear { clear: both; height: 0; }
+
+.image {
+  text-align: center;
+}
+
+.image img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
