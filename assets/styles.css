@@ -321,6 +321,10 @@ span.will { background: url(../img/text-will.webp) center center no-repeat; }
 #stats-damage { top: 29px; left: 683px; }
 #stats-horror { top: 229px; left: 733px; }
 
+.stat-1 { background: url(../img/stat-1.webp) 0 0 no-repeat; }
+.stat-2 { background: url(../img/stat-2.webp) 0 0 no-repeat; }
+.stat-3 { background: url(../img/stat-3.webp) 0 0 no-repeat; }
+.stat-4 { background: url(../img/stat-4.webp) 0 0 no-repeat; }
 .stat-5 { background: url(../img/stat-5.webp) 0 0 no-repeat; }
 .stat-6 { background: url(../img/stat-6.webp) 0 0 no-repeat; }
 .stat-7 { background: url(../img/stat-7.webp) 0 0 no-repeat; }

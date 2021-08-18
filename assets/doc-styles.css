@@ -1511,3 +1511,18 @@ header {
   height: auto;
   margin: 0 auto;
 }
+
+@media only screen and (min-width: 320px) {
+
+  header {
+    padding: 10px 0;
+  }
+
+  header span {
+    font-size: 12px;
+  }
+
+  .fs-4 {
+    font-size: 1.3rem!important;
+  }
+}
