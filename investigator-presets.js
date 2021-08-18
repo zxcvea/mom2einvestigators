@@ -111,7 +111,7 @@
       "Influence": 5,
       "Will": 4
     },
-    "Story": "{Her voice was astounding! So powerful, yet angelic. When she hits those high notes, it's as if almost blown the roof off the venue. If Helen of Troy could launch a thousand ships, her voice could summon a storm!}\n\nEdith Langford, the starry eyed nightclub singer whose thunderous voice can be heard a mile away. Whereever she sings, all the boys come far and wide to hear her voice."
+    "Story": "{Her voice was astounding! So powerful, yet angelic. When she hits those high notes, almost as if the roof had blown off the entire venue. If Helen of Troy could launch a thousand ships, her voice could summon a storm!}\n\nEdith Langford, the starry eyed nightclub singer whose thunderous voice can be heard a mile away. Whereever she sings, all the boys come far and wide to listen."
   },
   {
     "Name": "Irvin Livingston",

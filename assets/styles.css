@@ -123,6 +123,14 @@ input:-webkit-autofill:active
   margin: 0 0 20px 0;
 }
 
+#settings a,
+#settings a:link,
+#settings a:visited,
+#settings a:hover,
+#settings a:active {
+  color: #885128;
+}
+
 #data-message {
   display: block;
   height: 39px;

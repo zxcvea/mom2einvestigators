@@ -1476,6 +1476,11 @@ select {
   }
 }
 
+header {
+  background: #fff;
+  z-index: 9999;
+}
+
 .text-icon {
   display: inline-block;
   width: 22px;
