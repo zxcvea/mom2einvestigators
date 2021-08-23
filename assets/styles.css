@@ -319,19 +319,9 @@ input:-webkit-autofill:active
   opacity: 1;
 }
 
-#filter ul li a.active:hover {
-  border-color: #ff0303;
-  opacity: 1;
-}
-
 #filter ul li a.inactive {
   border-color: #000;
   opacity: 0.5;
-}
-
-#filter ul li a.inactive:hover {
-  border-color: #0a8c08;
-  opacity: 1;
 }
 
 #filter ul li a .text {
