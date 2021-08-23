@@ -203,7 +203,7 @@ input:-webkit-autofill:active
   transform: translate(-50%, 0);
 }
 
-#settings {
+.settings {
   display: block;
   margin: 0 auto;
   width: 1406px;
@@ -220,22 +220,22 @@ input:-webkit-autofill:active
   overflow: hidden;
 }
 
-#settings .padding {
+.settings .padding {
   padding: 100px 100px 0 100px;
 }
 
-#settings h2 {
+.settings h2 {
   font-size: 50px;
   vertical-align: middle;
   font-weight: bold;
   margin: 0 0 20px 0;
 }
 
-#settings a,
-#settings a:link,
-#settings a:visited,
-#settings a:hover,
-#settings a:active {
+.settings a,
+.settings a:link,
+.settings a:visited,
+.settings a:hover,
+.settings a:active {
   color: #885128;
 }
 
@@ -249,12 +249,12 @@ input:-webkit-autofill:active
   color: #5d0f0f;
 }
 
-#settings label {
+.settings label {
   font-weight: bold;
   display: block;
 }
 
-#settings .input-ctn {
+.settings .input-ctn {
   display: inline-block;
   float: left;
   width: 655px;
@@ -262,7 +262,7 @@ input:-webkit-autofill:active
   background: url(../img/input-h.webp) 0 0 no-repeat;
 }
 
-#settings input {
+.settings input {
   width: 615px;
   height: 63px;
   background: none;
@@ -271,7 +271,7 @@ input:-webkit-autofill:active
   font-size: 18px;
 }
 
-#settings a.btn {
+.settings a.btn {
   display: block;
   width: 150px;
   height: 56px;
@@ -285,15 +285,15 @@ input:-webkit-autofill:active
   margin-left: 10px;
 }
 
-#settings a.btn#btn-update-data {
+.settings a.btn#btn-update-data {
   margin-left: 15px;
 }
 
-#settings a.btn:hover {
+.settings a.btn:hover {
   background: url(../img/btn1.webp) 0 0 no-repeat;
 }
 
-#settings a.btn:active {
+.settings a.btn:active {
   background: url(../img/btn2.webp) 0 0 no-repeat;
 }
 
@@ -554,17 +554,17 @@ span.will { background: url(../img/text-will.webp) center center no-repeat; }
     right: 0;
   }
 
-  #settings {
+  #settings-custom {
     width: 815px;
     height: 1406px;
     background-image: url(../img/bg-vertical.webp);
   }
 
-  #settings .padding {
+  #settings-custom .padding {
     padding: 100px 80px 0 80px;
   }
 
-  #settings a.btn {
+  #settings-custom a.btn {
     float: right;
   }
 }

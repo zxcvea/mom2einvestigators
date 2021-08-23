@@ -136,7 +136,7 @@ var Interface = {
       }
     }
 
-    $('#home, #container, #settings').css({
+    $('#home, #container, .settings').css({
       transform: "translate(-50%, -50%) " + "scale(" + scale + ")"
     });
 
@@ -174,13 +174,14 @@ var Template = {
   CreateSettings: function() {
     var settingsCtn = '';
     if (Settings.MODE == 0) {
-      settingsCtn = '<div id="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding" id="filter"><h2>Filter by Expansion</h2><ul><li><a href="javascript:void(0);" class="base" dataref="base"><span class="icon"></span><span class="text">Core</span></a></li><li><a href="javascript:void(0);" class="btt" dataref="btt"><span class="icon"></span><span class="text">Beyond the Threshold</span></a></li><li><a href="javascript:void(0);" class="soa" dataref="soa"><span class="icon"></span><span class="text">Streets of Arkham</span></a></li><li><a href="javascript:void(0);" class="sot" dataref="sot"><span class="icon"></span><span class="text">Sanctum of Twilight</span></a></li><li><a href="javascript:void(0);" class="hj" dataref="hj"><span class="icon"></span><span class="text">Horrific Journeys</span></a></li><li><a href="javascript:void(0);" class="pots" dataref="pots"><span class="icon"></span><span class="text">Path of the Serpent</span></a></li><li><a href="javascript:void(0);" class="rm" dataref="rm"><span class="icon"></span><span class="text">Recurring Nightmares</span></a></li><li><a href="javascript:void(0);" class="smfa" dataref="smfa"><span class="icon"></span><span class="text">Forbidden Alchemy</span></a></li><li><a href="javascript:void(0);" class="smcotw" dataref="smcotw"><span class="icon"></span><span class="text">Call of the Wild</span></a></li></ul></div></div>';
+      settingsCtn = '<div id="settings-default" class="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding" id="filter"><h2>Filter by Expansion</h2><ul><li><a href="javascript:void(0);" class="base" dataref="base"><span class="icon"></span><span class="text">Core</span></a></li><li><a href="javascript:void(0);" class="btt" dataref="btt"><span class="icon"></span><span class="text">Beyond the Threshold</span></a></li><li><a href="javascript:void(0);" class="soa" dataref="soa"><span class="icon"></span><span class="text">Streets of Arkham</span></a></li><li><a href="javascript:void(0);" class="sot" dataref="sot"><span class="icon"></span><span class="text">Sanctum of Twilight</span></a></li><li><a href="javascript:void(0);" class="hj" dataref="hj"><span class="icon"></span><span class="text">Horrific Journeys</span></a></li><li><a href="javascript:void(0);" class="pots" dataref="pots"><span class="icon"></span><span class="text">Path of the Serpent</span></a></li><li><a href="javascript:void(0);" class="rm" dataref="rm"><span class="icon"></span><span class="text">Recurring Nightmares</span></a></li><li><a href="javascript:void(0);" class="smfa" dataref="smfa"><span class="icon"></span><span class="text">Forbidden Alchemy</span></a></li><li><a href="javascript:void(0);" class="smcotw" dataref="smcotw"><span class="icon"></span><span class="text">Call of the Wild</span></a></li></ul></div></div>';
+      $('#main').append(settingsCtn);
     } else {
-      settingsCtn = '<div id="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding"><h2>Settings</h2><label>Custom Investigators:</label><p>To use your own custom investigators, paste the url of your data JS file. <a href="info/">Find out more</a>.</p><p><span id="data-message"></span></p><div class="input-ctn"><input type="text" id="datasource" /></div><a href="javascript:void(0);" id="btn-update-data" class="btn">Update</a><a href="javascript:void(0);" id="btn-reset-data" class="btn">Reset</a></div></div>';
+      settingsCtn = '<div id="settings-custom" class="settings"><a href="javascript:void(0);" id="btn-exit-settings">&nbsp;</a><div class="padding"><h2>Settings</h2><label>Custom Investigators:</label><p>To use your own custom investigators, paste the url of your data JS file. <a href="info/">Find out more</a>.</p><p><span id="data-message"></span></p><div class="input-ctn"><input type="text" id="datasource" /></div><a href="javascript:void(0);" id="btn-update-data" class="btn">Update</a><a href="javascript:void(0);" id="btn-reset-data" class="btn">Reset</a></div></div>';
+      $('body').append(settingsCtn);
     }
 
-    $('body').append(settingsCtn);
-    $('#btn-exitfs, #settings').hide();
+    $('#btn-exitfs, .settings').hide();
     $('#filter ul li a:not(.base)').addClass('inactive');
     $('#filter ul li a.base').addClass('active');
     Settings.REFRESH = false;
@@ -229,7 +230,7 @@ var Template = {
     Template.CreateInvestigators();
     Template.INVESTIGATOR_INDEX = 0;
     if (Settings.REFRESH) {
-      $('#settings').remove();
+      $('.settings').remove();
       Template.CreateSettings();
     }
   },
@@ -341,7 +342,7 @@ var Template = {
     $(document).on('click', '#btn-settings', function(){
       if (!Template.DISPLAY_SETTINGS) {
         var height = $('#container').height();
-        $('#settings').show();
+        $('.settings').show();
         Template.DISPLAY_SETTINGS = true;
         $('#btn-exitfs, #btn-enterfs, #btn-settings').hide();
       }
@@ -350,7 +351,7 @@ var Template = {
     $(document).on('click', '#btn-exit-settings', function(){
       if (Template.DISPLAY_SETTINGS) {
         var movePos = $('#container').height();
-        $('#settings').hide();
+        $('.settings').hide();
         Template.DISPLAY_SETTINGS = false;
         if (Template.FULLSCREEN) {
           $('#btn-enterfs').hide();
