@@ -11,7 +11,8 @@ var Settings = {
   RESET: false,
   STARTUP: true,
   REFRESH: false,
-  MODE: 0
+  MODE: 0,
+  FULLSCREEN: false
 };
 
 var App = {
@@ -46,36 +47,22 @@ var App = {
     });
   },
 
-  Run: function() {
-    Interface.Build();
-    StartPage.Load();
-  }
-
-};
-
-var StartPage = {
-
-  Events: function() {
-    $(document).on('click', '#btn-standard', function(){
-      $('#home').hide();
-      Settings.MODE = 0;
-      Settings.REFRESH = true;
-      Settings.DATASOURCE = Settings.DEFAULTSOURCE;
-      App.LoadDatasource(Settings.DATASOURCE);
-    });
-
-    $(document).on('click', '#btn-custom', function(){
-      $('#home').hide();
-      Settings.MODE = 2;
-      Settings.REFRESH = true;
-      Settings.DATASOURCE = Settings.CUSTOMSOURCE;
-      App.LoadDatasource(Settings.DATASOURCE);
-    });
+  ToggleFullscreen: function() {
+    if (!Settings.FULLSCREEN) {
+      Settings.FULLSCREEN = true;
+      document.documentElement.requestFullscreen();
+      $('.btn-enterfs').hide();
+      $('.btn-exitfs').show();
+    } else {
+      Settings.FULLSCREEN = false;
+      document.exitFullscreen();
+      $('.btn-enterfs').show();
+      $('.btn-exitfs').hide();
+    }
   },
 
-  Load: function() {
-    Interface.CreateStartpage();
-    StartPage.Events();
+  Run: function() {
+    Interface.Build();
   }
 
 };
@@ -94,7 +81,7 @@ var Interface = {
 
   CreateStartpage: function() {
     //var startPage = '<div id="home"><div class="title"><h1>Investigator Cards</h1><span>For Mansions of Madness: 2nd Edition</span></div><div class="padding"><a href="javascript:void(0);" id="btn-standard" dataref="0"><span class="icon"></span><span class="text">STANDARD</span></a><a href="javascript:void(0);" id="btn-custom" dataref="2"><span class="icon"></span><span class="text">CUSTOM</span></a></div></div>';
-    var startPage = '<div id="home"><div class="padding"><a href="javascript:void(0);" id="btn-standard" dataref="0"></a><a href="javascript:void(0);" id="btn-custom" dataref="2"></a></div></div>';
+    var startPage = '<div id="home"><div class="padding"><a href="javascript:void(0);" id="btn-standard" class="cta noselect" dataref="0"></a><a href="javascript:void(0);" id="btn-custom" class="cta noselect" dataref="2"></a></div></div>';
     $('#main').append(startPage);
     Interface.Scale();
   },
@@ -102,12 +89,15 @@ var Interface = {
   CreateButtons: function() {
     var homeBtn = '<a href="javascript:void(0);" id="btn-home">&nbsp;</a>';
     var settingsBtn = '<a href="javascript:void(0);" id="btn-settings">&nbsp;</a>';
-    var enterfsBtn = '<a href="javascript:void(0);" id="btn-enterfs">&nbsp;</a>';
-    var exitfsBtn = '<a href="javascript:void(0);" id="btn-exitfs">&nbsp;</a>';
+    var infoBtn = '<a href="info/" id="btn-info">&nbsp;</a>';
+    var enterfsBtn = '<a href="javascript:void(0);" class="btn-enterfs">&nbsp;</a>';
+    var exitfsBtn = '<a href="javascript:void(0);" class="btn-exitfs">&nbsp;</a>';
     $('#container').append(homeBtn);
     $('#container').append(settingsBtn);
-    $('#container').append(enterfsBtn);
-    $('#container').append(exitfsBtn);
+    $('#home').append(infoBtn);
+    $('#container, #home').append(enterfsBtn);
+    $('#container, #home').append(exitfsBtn);
+    $('.btn-exitfs').hide();
   },
 
   Scale: function() {
@@ -149,10 +139,35 @@ var Interface = {
         Interface.Scale();
       }
     });
+
+    $(document).on('click', '#btn-standard', function(){
+      $('#home').hide();
+      Settings.MODE = 0;
+      Settings.REFRESH = true;
+      Settings.DATASOURCE = Settings.DEFAULTSOURCE;
+      App.LoadDatasource(Settings.DATASOURCE);
+    });
+
+    $(document).on('click', '#btn-custom', function(){
+      $('#home').hide();
+      Settings.MODE = 2;
+      Settings.REFRESH = true;
+      Settings.DATASOURCE = Settings.CUSTOMSOURCE;
+      App.LoadDatasource(Settings.DATASOURCE);
+    });
+
+    $(document).on('click', '.btn-enterfs', function(){
+      App.ToggleFullscreen();
+    });
+
+    $(document).on('click', '.btn-exitfs', function(){
+      App.ToggleFullscreen();
+    });
   },
 
   Build: function() {
     Interface.CreateContainer();
+    Interface.CreateStartpage();
     Interface.CreateButtons();
     Interface.Events();
   }
@@ -169,7 +184,6 @@ var Template = {
   INVESTIGATOR_INDEX: 0,
   DISPLAY_SETTINGS: false,
   SHOW_STORY: false,
-  FULLSCREEN: false,
 
   CreateSettings: function() {
     var settingsCtn = '';
@@ -181,7 +195,7 @@ var Template = {
       $('body').append(settingsCtn);
     }
 
-    $('#btn-exitfs, .settings').hide();
+    $('.btn-exitfs, .settings').hide();
     $('#filter ul li a:not(.base)').addClass('inactive');
     $('#filter ul li a.base').addClass('active');
     Settings.REFRESH = false;
@@ -327,14 +341,6 @@ var Template = {
       }
     });
 
-    $(document).on('click', '#btn-enterfs', function(){
-      Template.ToggleFullscreen();
-    });
-
-    $(document).on('click', '#btn-exitfs', function(){
-      Template.ToggleFullscreen();
-    });
-
     $(document).on('click', '#btn-home', function(){
       $('#home').show();
     });
@@ -344,7 +350,7 @@ var Template = {
         var height = $('#container').height();
         $('.settings').show();
         Template.DISPLAY_SETTINGS = true;
-        $('#btn-exitfs, #btn-enterfs, #btn-settings').hide();
+        $('.btn-exitfs, .btn-enterfs, #btn-settings').hide();
       }
     });
 
@@ -354,11 +360,11 @@ var Template = {
         $('.settings').hide();
         Template.DISPLAY_SETTINGS = false;
         if (Template.FULLSCREEN) {
-          $('#btn-enterfs').hide();
-          $('#btn-exitfs, #btn-settings').show();
+          $('.btn-enterfs').hide();
+          $('.btn-exitfs, #btn-settings').show();
         } else {
-          $('#btn-enterfs, #btn-settings').show();
-          $('#btn-exitfs').hide();
+          $('.btn-enterfs, #btn-settings').show();
+          $('.btn-exitfs').hide();
         }
         $('#data-message').text('');
       }
@@ -391,20 +397,6 @@ var Template = {
       }
       Template.ToggleInvestigators(dataref, show);
     });
-  },
-
-  ToggleFullscreen: function() {
-    if (!Template.FULLSCREEN) {
-      Template.FULLSCREEN = true;
-      document.documentElement.requestFullscreen();
-      $('#btn-enterfs').hide();
-      $('#btn-exitfs').show();
-    } else {
-      Template.FULLSCREEN = false;
-      document.exitFullscreen();
-      $('#btn-enterfs').show();
-      $('#btn-exitfs').hide();
-    }
   },
 
   Init: function() {

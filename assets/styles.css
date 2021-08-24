@@ -25,6 +25,7 @@ input:-webkit-autofill:active
 }
 
 .noselect {
+  -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -41,18 +42,29 @@ input:-webkit-autofill:active
   stroke-width: 5;
 }
 
-#btn-enterfs, #btn-exitfs {
+.btn-enterfs, .btn-exitfs {
   display: block;
   position: absolute;
   top: 0;
   right: 0;
   width: 80px;
   height: 80px;
-  z-index: 99999;
+  z-index: 700;
 }
 
-#btn-enterfs { background: url(../img/btn_expand.webp) 0 0 no-repeat; }
-#btn-exitfs { background: url(../img/btn_close.webp) 0 0 no-repeat; }
+.btn-enterfs { background: url(../img/btn_expand.webp) 0 0 no-repeat; }
+.btn-exitfs { background: url(../img/btn_close.webp) 0 0 no-repeat; }
+
+#btn-info {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background: url(../img/icon_info.webp) 0 0 no-repeat;
+  z-index: 700;
+}
 
 #btn-home {
   display: block;
@@ -62,7 +74,7 @@ input:-webkit-autofill:active
   width: 80px;
   height: 80px;
   background: url(../img/icon_home.webp) 0 0 no-repeat;
-  z-index: 99999;
+  z-index: 600;
 }
 
 #btn-settings {
@@ -73,7 +85,7 @@ input:-webkit-autofill:active
   width: 80px;
   height: 80px;
   background: url(../img/icon_settings.webp) 0 0 no-repeat;
-  z-index: 99999;
+  z-index: 600;
 }
 
 #btn-exit-settings {
@@ -84,7 +96,7 @@ input:-webkit-autofill:active
   width: 80px;
   height: 80px;
   background: url(../img/btn_close.webp) 0 0 no-repeat;
-  z-index: 99999;
+  z-index: 600;
 }
 
 #main {
@@ -98,7 +110,7 @@ input:-webkit-autofill:active
   width: 1406px;
   height: 815px;
   overflow: hidden;
-  z-index: 9999;
+  z-index: 300;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -120,7 +132,7 @@ input:-webkit-autofill:active
   background: url(../img/splash.webp) 0 0 no-repeat;
   font-family: 'EB Garamond', serif;
   font-size: 30px;
-  z-index: 999999;
+  z-index: 500;
   overflow: hidden;
 }
 
@@ -158,7 +170,7 @@ input:-webkit-autofill:active
   text-align: center;
 }
 
-#home a {
+#home a.cta {
   display: block;
   position: relative;
   width: 374px;
@@ -169,7 +181,7 @@ input:-webkit-autofill:active
   color: #885128;
 }
 
-#home a span.icon {
+#home a.cta span.icon {
   position: absolute;
   display: block;
   background-size: cover;
@@ -187,7 +199,7 @@ input:-webkit-autofill:active
 #home #btn-standard span.icon {  }
 #home #btn-custom span.icon {  }
 
-#home a span.text {
+#home a.cta span.text {
   position: absolute;
   display: block;
   font-family: 'IBM Plex Serif', serif;
@@ -216,7 +228,7 @@ input:-webkit-autofill:active
   background: url(../img/bg.webp) 0 0 no-repeat;
   font-family: 'EB Garamond', serif;
   font-size: 30px;
-  z-index: 999999;
+  z-index: 400;
   overflow: hidden;
 }
 
