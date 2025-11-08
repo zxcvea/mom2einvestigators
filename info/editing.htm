@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+  <link href="../assets/doc-styles.css" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+
+  <title>Investigator Cards - Mansions of Madness: 2nd Edition</title>
+</head>
+<body>
+  <div class="col-lg-6 mx-auto px-3 pb-3">
+    <header class="align-items-center mb-4 border-bottom float-none sticky">
+      <div class="align-items-center text-dark text-decoration-none col-md-auto py-md-4">
+        <img src="../img/mom-icon.webp" class="float-start" alt="" width="50px" />
+        <div class="float-start ms-2">
+          <span class="fs-4">Investigator Cards App</span><br />
+          <span>For Mansions of Madness: 2nd Edition</span>
+        </div>
+        <div class="float-end mt-3">
+          <a href="https://zxcvea.github.io/mom2einvestigators" class="btn btn-danger">View App</a>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+    </header>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.htm">Home</a></li>
+        <li class="breadcrumb-item active">Editing Investigator data manually</li>
+    </ol>
+
+    <div class="doc-wrapper">
+      <div class="container">
+        <div class="doc-body row">
+          <div class="doc-content col-12 order-1">
+            <div class="content-inner">
+              <section id="installation-section" class="doc-section">
+                <h2 class="section-title">Editing Investigator data manually</h2>
+                <div class="section-block">
+                  <h3 class="block-title">Add a Profile Name &amp; Job</h3>
+                  <p>Add the name of your Investigator next to the "Name" property. </p>
+                  <p>Add the job of your Investigator next to the "Job" property. Ensure both are wrapped by the double quotes ".</p>
+                  <p>E.g. </p>
+<pre><code>[
+  {
+    "Name": "<span>John Doe</span>",
+    "Job": "<span>Firefighter</span>",
+    "Image": "img/profile-generic-male.webp",
+    "Ability": "",
+    "Stats": {
+      "Damage": 7,
+      "Horror": 7
+    },
+    "Attributes": {
+      "Strength": 4,
+      "Agility": 3,
+      "Observation": 5,
+      "Lore": 3,
+      "Influence": 4,
+      "Will": 2
+    },
+    "Story": ""
+  }
+]
+</code></pre>
+                </div><!--//section-block-->
+                <div class="section-block">
+                  <h3 class="block-title">Add a Profile image</h3>
+                  <p>By default the profile image will use the App's generic profile images. </p>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Image Url</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><th scope="row">img/profile-generic-male.webp</th><td>Generic Male Portrait</td></tr>
+                      <tr><th scope="row">img/profile-generic-female.webp</th><td>Generic Female Portrait</td></tr>
+                    </tbody>
+                  </table>
+                  <p>You can use your own images but you'll have to create/edit and upload/host them somewhere. There are a number of free services to host your images. Profile image sizes should be 400x480px.</p>
+                  <p><ul><li><a href="https://www.google.com/search?q=free+image+hosting+services&ie=UTF-8">Free Image hosting sites</a></li></ul></p>
+                  <p>Change the "Image" value to point to a default image or your hosted profile image.</p>
+                  <p>E.g. </p>
+<pre><code>[
+  {
+    "Name": "John Doe",
+    "Job": "Firefighter",
+    "Image": "<span>https://i.imgur.com/BtEY4cS.jpeg</span>",
+    "Ability": "",
+    "Stats": {
+      "Damage": 7,
+      "Horror": 7
+    },
+    "Attributes": {
+      "Strength": 4,
+      "Agility": 3,
+      "Observation": 5,
+      "Lore": 3,
+      "Influence": 4,
+      "Will": 2
+    },
+    "Story": ""
+  }
+]
+</code></pre>
+                </div><!--//section-block-->
+                <div class="section-block">
+                  <h3 class="block-title">Add an Ability text</h3>
+                  <p>Add the ability text to the "Ability" property. Refer to the below table for a list of common words the App will automatically convert to the appropiate format. Remember not to make the text too long.</p>
+                  <p>E.g. </p>
+<pre><code>[
+  {
+    "Name": "John Doe",
+    "Job": "Firefighter",
+    "Image": "img/profile-generic-male.webp",
+    "Ability": "<span>When resolving a {strength} test, you may convert any {?} to {success}</span>",
+    "Stats": {
+      "Damage": 7,
+      "Horror": 7
+    },
+    "Attributes": {
+      "Strength": 4,
+      "Agility": 3,
+      "Observation": 5,
+      "Lore": 3,
+      "Influence": 4,
+      "Will": 2
+    },
+    "Story": ""
+  }
+]
+</code></pre>
+<h6>Ability Words</h6>
+<p>The below formats will be automatically converted by the app to the corresponding format.</p>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Format</th>
+        <th>Converted Format</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">\n</th><td></td><td>Creates a new Line</td></tr>
+      <tr><th scope="row">{{text}}</th><td><strong>text</strong></td><td>Bolds the text</td></tr>
+      <tr><th scope="row">{action}</th><td><strong>Action:</strong></td><td>Action text</td></tr>
+      <tr><th scope="row">{focused}</th><td><strong>Focused</strong></td><td>Focused condition</td></tr>
+      <tr><th scope="row">{dazed}</th><td><strong>Dazed</strong></td><td>Dazed condition</td></tr>
+      <tr><th scope="row">{fearless}</th><td><strong>Fearless</strong></td><td>Fearless condition</td></tr>
+      <tr><th scope="row">{mesmerized}</th><td><strong>Mesmerized</strong></td><td>Mesmerized condition</td></tr>
+      <tr><th scope="row">{poisoned}</th><td><strong>Poisoned</strong></td><td>Poisoned condition</td></tr>
+      <tr><th scope="row">{restrained}</th><td><strong>Restrained</strong></td><td>Restrained condition</td></tr>
+      <tr><th scope="row">{righteous}</th><td><strong>Righteous</strong></td><td>Righteous condition</td></tr>
+      <tr><th scope="row">{stressed}</th><td><strong>Stressed</strong></td><td>Stressed condition</td></tr>
+      <tr><th scope="row">{stunned}</th><td><strong>Stunned</strong></td><td>Stunned condition</td></tr>
+      <tr><th scope="row">{wounded}</th><td><strong>Wounded</strong></td><td>Wounded condition</td></tr>
+      <tr><th scope="row">{insane}</th><td><strong>Insane</strong></td><td>Insane condition</td></tr>
+      <tr><th scope="row">{strength}</th><td><strong class="text-icon strength">Strength</strong></td><td>Strength icon</td></tr>
+      <tr><th scope="row">{agility}</th><td><strong class="text-icon agility">Agility</strong></td><td>Agility icon</td></tr>
+      <tr><th scope="row">{observation}</th><td><strong class="text-icon observation">Observation</strong></td><td>Observation icon</td></tr>
+      <tr><th scope="row">{lore}</th><td><strong class="text-icon lore">Lore</strong></td><td>Lore icon</td></tr>
+      <tr><th scope="row">{influence}</th><td><strong class="text-icon influence">Influence</strong></td><td>Influence icon</td></tr>
+      <tr><th scope="row">{will}</th><td><strong class="text-icon will">Will</strong></td><td>Will icon</td></tr>
+      <tr><th scope="row">{?}</th><td><strong class="text-icon investigation">Clue</strong></td><td>Clue icon</td></tr>
+      <tr><th scope="row">{success}</th><td><strong class="text-icon success">Success</strong></td><td>Success icon</td></tr>
+    </tbody>
+  </table>
+</div><!--//table-responsive-->
+                </div><!--//section-block-->
+                <div class="section-block">
+                  <h3 class="block-title">Update the character's Stats &amp; Attributes</h3>
+                  <p>Update the numbers for your character's Stats and Attributes. Stats can be <strong>1-9</strong>, Attributes can be <strong>1-5</strong>.</p>
+                  <p>Generally, Damage and Horror should add up to 14 and Attributes to 21. Keep that in mind if you are going for balanced Investigators, otherwise numbers are up to you.</p>
+<pre><code>[
+  {
+    "Name": "John Doe",
+    "Job": "Firefighter",
+    "Image": "img/profile-generic-male.webp",
+    "Ability": "When resolving a {strength} test, you may convert any {?} to {success}",
+    "Stats": {
+      "Damage": <span>7</span>,
+      "Horror": <span>7</span>
+    },
+    "Attributes": {
+      "Strength": <span>3</span>,
+      "Agility": <span>3</span>,
+      "Observation": <span>4</span>,
+      "Lore": <span>3</span>,
+      "Influence": <span>5</span>,
+      "Will": <span>3</span>
+    },
+    "Story": ""
+  }
+]
+</code></pre>
+                </div><!--//section-block-->
+                <div class="section-block">
+                  <h3 class="block-title">Add a story to your Investigator</h3>
+                  <p>Add the story text to the "Story" property. Refer to the below table for formatting used by the Web App.</p>
+<pre><code>[
+  {
+    "Name": "John Doe",
+    "Job": "Firefighter",
+    "Image": "img/profile-generic-male.webp",
+    "Ability": "When resolving a {strength} test, you may convert any {?} to {success}",
+    "Stats": {
+      "Damage": 7,
+      "Horror": 7
+    },
+    "Attributes": {
+      "Strength": 3,
+      "Agility": 3,
+      "Observation": 4,
+      "Lore": 3,
+      "Influence": 5,
+      "Will": 3
+    },
+    "Story": "<span>[Some dramatic story quote here]\n\nSome story about John Doe's character as a Firefighter and why this character is who he is.</span>"
+  }
+]
+</code></pre>
+<h6>Story Formatting</h6>
+<p>The below formats will be automatically converted by the app to the corresponding format.</p>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Format</th>
+        <th>Converted Format</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">\n\n</th>
+        <td></td>
+        <td>Used to separate paragraphs</td>
+      </tr>
+      <tr>
+        <th scope="row">{text}</th>
+        <td><i>"text"</i></td>
+        <td>Used to create a quote</td>
+      </tr>
+      <tr>
+        <th scope="row">[text]</th>
+        <td><strong>text</strong></td>
+        <td>Used to bold text</td>
+      </tr>
+    </tbody>
+  </table>
+</div><!--//table-responsive-->
+
+                </div><!--//section-block-->
+                <div class="section-block">
+                  <h3 class="block-title">Add multiple Investigators</h3>
+                  <p>Multiple Investigators can be added by copying and pasting the {} block and appending it to the previous Investigator, separated by a comma ",". Make sure there is no comma on the last added Investigator otherwise the Web App may not be able to read the data.</p>
+                  <p>E.g. </p>
+<pre><code>[
+  {
+    "Name": "John Doe",
+    "Job": "Firefighter",
+    "Image": "img/profile-generic-male.webp",
+    "Ability": "When resolving a {strength} test, you may convert any {?} to {success}",
+    "Stats": {
+      "Damage": 7,
+      "Horror": 7
+    },
+    "Attributes": {
+      "Strength": 3,
+      "Agility": 3,
+      "Observation": 4,
+      "Lore": 3,
+      "Influence": 5,
+      "Will": 3
+    },
+    "Story": "{Some dramatic story quote here}\n\nSome story about John Doe's character as a Firefighter and why this character is who he is."
+  }<span>,
+  {
+    "Name": "Jane Doe",
+    "Job": "Freelance Journalist",
+    "Image": "img/profile-generic-female.webp",
+    "Ability": "Cannot be {restrained} or {stunned}.",
+    "Stats": {
+      "Damage": 9,
+      "Horror": 5
+    },
+    "Attributes": {
+      "Strength": 5,
+      "Agility": 3,
+      "Observation": 2,
+      "Lore": 3,
+      "Influence": 5,
+      "Will": 3
+    },
+    "Story": "<span>{Some dramatic story quote here}\n\nSome story about Jane Doe's character as a Freelance Journalist and why this character is who she is.</span>"
+  }
+  </span>
+]
+</code></pre>
+                </div><!--//section-block-->
+                <div class="section-block">
+                  <h3 class="block-title">Check your datasource file is correct</h3>
+                  <p>You can check that your datasource file is correct by copy and pasting it into <a href="https://jsonlint.com/">jsonlint.com</a>. This will ensure that file is formatted correctly and will work with the app.</p>
+                </div><!--//section-block-->
+                <div class="section-block">
+                  <h3 class="block-title">Wrap-up and afterthoughts</h3>
+                  <p>Once you have created your datasource file, you'll need to upload/host it somewhere. Refer to the <a href="index.htm">info page</a> for further details. Once hosted, you can copy and paste your datasource link into the app to view your custom Investigators.</p>
+                  <div class="image">
+                    <img src="../img/howto-custom.webp" class="mx-auto" />
+                  </div>
+                </div><!--//section-block-->
+              </section><!--//doc-section-->
+            </div><!--//content-inner-->
+          </div><!--//doc-content-->
+        </div><!--//doc-body-->
+      </div><!--//container-->
+    </div>
+    <footer class="pt-5 my-5 text-muted border-top">
+      &copy; zxcvea 2021
+    </footer>
+  </div>
+</body>
+</html>

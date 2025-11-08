@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+  <link href="../assets/doc-styles.css" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+
+  <title>Investigator Cards - Mansions of Madness: 2nd Edition</title>
+</head>
+<body>
+  <div class="col-lg-6 mx-auto px-3 pb-3">
+    <header class="align-items-center mb-4 border-bottom float-none sticky">
+      <div class="align-items-center text-dark text-decoration-none col-md-auto py-md-4">
+        <img src="../img/mom-icon.webp" class="float-start" alt="" width="50px" />
+        <div class="float-start ms-2">
+          <span class="fs-4">Investigator Cards App</span><br />
+          <span>For Mansions of Madness: 2nd Edition</span>
+        </div>
+        <div class="float-end mt-3">
+          <a href="https://zxcvea.github.io/mom2einvestigators" class="btn btn-danger">View App</a>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+    </header>
+    <div class="image">
+      <img src="../img/howto-app.webp" class="mx-auto" alt="" />
+      <div class="meta pt-3"><a href="https://zxcvea.github.io/mom2einvestigators">https://zxcvea.github.io/mom2einvestigators</a></div>
+    </div>
+    <div class="doc-wrapper">
+      <div class="container">
+        <div class="doc-body row">
+          <div class="doc-content col-12 order-1">
+            <div class="content-inner">
+              <section id="overview" class="doc-section">
+                <h2 class="section-title">Overview</h2>
+                <div class="section-block">
+                  <p>This web app was originally designed to bring a new range of unique and more balanced custom Investigators to play with Mansions of Madness: 2nd Edition. When playing, select an existing Investigator in the official MoM:2e app and substitute the character with one from this web app or your very own custom one (see below for more details). This app is free to use and designed to be viewed on mobile.</p>
+                  <p><strong>Update 19/10/2025</strong> - Released <a href="https://zxcvea.github.io/mom2einvestigatorcreator/">Custom Investigator Creator Tool</a> and updated guide.</p>
+                  <p><strong>Update 11/10/2025</strong> - Updated artwork for custom Investigators and home screen.</p>
+                  <p><strong>Update 23/08/2021</strong> - The app has been updated to include all the original Investigators from the base game and expansions, in addition to the custom Investigators (for those that have lost their physical cards or want to view/play with Investigators from the hard to find expansions!).</p>
+                </div>
+              </section><!--//doc-section-->
+              <section id="customize" class="doc-section">
+                <h2 class="section-title">Creating your own Investigators</h2>
+                <div class="section-block">
+                  <h3>Custom Investigator Creator Tool</h3>
+                  <p>You can now create and customize your own Investigators to use with the Web App by using the <a href="https://zxcvea.github.io/mom2einvestigatorcreator/">Custom Investigator Creator Tool</a>.</p>
+                  <p class="image"><img src="https://zxcvea.github.io/mom2einvestigatorcreator/img/screenshots/screenshot001.jpg" alt="" /></p>
+                  <p>Once you have created your investigators with this tool, you will need to Export the JSON file and host it somewhere for the Web App to read (Refer to <a href="#step3">Step Three</a> below). </p>
+                </div>
+                <div class="section-block">
+                  <h3>Manually creating a data file</h3>
+                  <p>Prior to the release of <a href="https://zxcvea.github.io/mom2einvestigatorcreator/">Custom Investigator Creator Tool</a>, this was the original method of getting your custom investigators to work with the App. I've left these instructions in so you can understand how the data in the JSON file works. I highly recommend using the <a href="https://zxcvea.github.io/mom2einvestigatorcreator/">Custom Investigator Creator Tool</a> above instead.</p>
+                </div>
+                <div id="step1"  class="section-block">
+                  <h3 class="block-title">Step One: Create a datasource file</h3>
+                  <p>The datasource file is where the custom Investigator data is kept. It contains all the information, as well as the stats, abilities and attributes.</p>
+                  <p>Start by creating an empty JSON file - <strong>customdata.json</strong> or download the example file: <a href="../customdata.json">customdata.json</a></p>
+                  <p>Copy and paste the Investigator data template from below (if creating a new file) into the newly created file or edit the example file. </p>
+<pre><code>[
+  {
+    "Name": "",
+    "Job": "",
+    "Image": "img/profile-generic-male.webp",
+    "Ability": "",
+    "Stats": {
+      "Damage": 7,
+      "Horror": 7
+    },
+    "Attributes": {
+      "Strength": 4,
+      "Agility": 3,
+      "Observation": 5,
+      "Lore": 3,
+      "Influence": 4,
+      "Will": 2
+    },
+    "Story": ""
+  }
+]
+</code></pre>
+                  <p>You can download and view the default preset data used by the Web App here: <a href="../investigators-custom.json">investigators-custom.json</a></p>
+                </div><!--//section-block-->
+                <div id="step2"  class="section-block">
+                  <h3 class="block-title">Step Two: Edit and Add Investigators to your custom datasource file</h3>
+                  <p>Edit the Investigator data by adding in the profile data as well as the starting Stats and Attribute numbers. Refer to the below guide for more information.</p>
+                  <p>
+                    <ul>
+                      <li><a href="editing.htm">Editing Investigator data guide</a></li>
+                    </ul>
+                  </p>
+                </div><!--//section-block-->
+                <div id="step3"  class="section-block">
+                  <h3 class="block-title">Step Three: Upload/host your custom datasource file and images</h3>
+                  <h4>Hosting datasource file</h4>
+                  <p>In order for the Web App to be able to read and use your datasource file, you'll need to upload and host it somewhere. Dropbox is recommended.</p>
+                  <p>
+                    <ul>
+                      <li><a href="https://www.dropbox.com/">Dropbox.com</a></li>
+                    </ul>
+                  </p>
+                  <p>Note: You could use other services but the Web App needs to be able to read the raw file so services like Google Drive or OneDrive won't work.</p>
+                  <h4>Hosting profile images</h4>
+                  <p>Any custom profile images can be uploaded to/hosted on any Image hosting service. A few examples of image hosting services below:</p>
+                  <p><ul><li><a href="https://www.google.com/search?q=free+image+hosting+services&ie=UTF-8">Free Image hosting sites</a></li></ul></p>
+                </div><!--//section-block-->
+                <div id="step4"  class="section-block">
+                  <h3 class="block-title">Step Four: Using your custom datasource file with the Web App</h3>
+                  <p>Now that you've got your custom datasource file hosted somewhere, you can copy and paste the url of the link into the Settings (cog icon) of the Web App and hit update. It should automatically update the Web App with your custom Investigator data.</p>
+                  <div class="image">
+                    <img src="../img/howto-settings.webp" class="mx-auto" alt="" />
+                  </div>
+                </div><!--//section-block-->
+                <div id="step5"  class="section-block">
+                  <h3 class="block-title">Step Five: Share your custom Investigators</h3>
+                  <p>Share the link to the Web App (<a href="https://zxcvea.github.io/mom2einvestigators">https://zxcvea.github.io/mom2einvestigators</a>) and a link to your datasource file. Get them to follow the above steps in <strong>Using your custom datasource file with the Web App</strong>.</p>
+                </div><!--//section-block-->
+              </section><!--//doc-section-->
+              <section id="thanks" class="doc-section">
+                <h2 class="section-title">Special Thanks</h2>
+                <div class="section-block">
+                  <p>
+                    <ul>
+                      <li><strong>MintyFreshPrince</strong> - Play Tester &amp; Investigator Extraordinaire</li>
+                      <li><strong>RedWolf</strong> - Providing <a href="https://github.com/redwolf2/valkyrie_content_creation_kit_mom">Valkyrie Content Creation Kit</a> assets</li>
+                    </ul>
+                  </p>
+                </div>
+              </section><!--//doc-section-->
+            </div><!--//content-inner-->
+          </div><!--//doc-content-->
+        </div><!--//doc-body-->
+      </div><!--//container-->
+    </div>
+    <footer class="pt-5 my-5 text-muted border-top">
+      &copy; zxcvea 2021
+    </footer>
+  </div>
+</body>
+</html>
